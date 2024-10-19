@@ -29,7 +29,7 @@ Os projetos são importantes para exercitar todo o conhecimento adquirido por me
 
 ## Estudos
 
-- ♾️ <a href="https://github.com/Otarossoni/data-structures-and-algorithms" target="_blank">Data Structures and Algorithms</a>: Algoritmos e estruturas de dados conhecidos são as pedras de amolar do pensamento lógico de qualquer desenvolvedor. Neste repositório, organizo os que estou estudando e faço anotações sobre eles.
+- ♾️ <a href="https://github.com/Otarossoni/data-structures-and-algorithms.lang" target="_blank">DSA.lang</a>: Algoritmos e estruturas de dados conhecidos são as pedras de amolar do pensamento lógico de qualquer desenvolvedor. Neste repositório, organizo os que estou estudando e faço anotações sobre eles.
 
 - 🛠️ <a href="https://github.com/Otarossoni/workshop" target="_blank">Workshop</a>: Um repositório voltado para pequenos desafios e experimentos em tecnologias que não conheço ou estou aprendendo.
 `;
