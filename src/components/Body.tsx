@@ -10,7 +10,7 @@ import cvPdf from '../assets/cv.pdf'
 import styles from './Body.module.css'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-go'
-import 'prismjs/themes/prism-tomorrow.css'
+import 'prismjs/themes/prism-okaidia.css'
 
 function Body() {
   const contentRef = useRef<HTMLDivElement>(null)
