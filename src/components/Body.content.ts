@@ -30,6 +30,8 @@ Os projetos são importantes para exercitar todo o conhecimento adquirido por me
 
 - 🐿️ <a href="https://github.com/Otarossoni/vscode-go-snippets" target="_blank">VS Code Golang Snippets</a>: Uma simples extensão para o <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a> que adiciona alguns snippets para a linguagem de programação <a href="https://go.dev/" target="_blank">Go</a>.
 
+- 🔷 <a href="https://github.com/Otarossoni/desafio-luiza-labs" target="_blank">Desafio Técnico Luiza Labs</a>: Desafio técnico do processo seletivo do <a href="https://www.linkedin.com/company/luizalabs/" target="_blank">Luiza Labs</a>. Trata-se de um serviço de consulta de CEP, cujo objetivo é permitir que o usuário obtenha seu endereço a partir do CEP. 
+
 ---
 
 ## Estudos
