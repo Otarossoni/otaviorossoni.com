@@ -32,7 +32,7 @@ Os projetos são importantes para exercitar todo o conhecimento adquirido por me
 
 - 🔷 <a href="https://github.com/Otarossoni/desafio-luiza-labs" target="_blank">Desafio Técnico Luiza Labs</a>: Desafio técnico do processo seletivo do <a href="https://www.linkedin.com/company/luizalabs/" target="_blank">Luiza Labs</a>. Trata-se de um serviço de consulta de CEP, cujo objetivo é permitir que o usuário obtenha seu endereço a partir do CEP. 
 
-- 📔 <a href="https://github.com/Otarossoni/mangadex-downloader" target="_blank">Mangadex Downloader</a>: Uma CLI escrita em Go, cujo objetivo é comunicar com a API da plataforma [Mangadex](https://mangadex.org/) e disponibilizar as imagens dos capítulos de mangá em alta definição, compactados em arquivos .zip e .cbz prontos para leitura, entre outras funcionalidades.
+- 📔 <a href="https://github.com/Otarossoni/mangadex-downloader" target="_blank">Mangadex Downloader</a>: Uma CLI escrita em <a href="https://go.dev/" target="_blank">Go</a>, cujo objetivo é comunicar com a API da plataforma [Mangadex](https://mangadex.org/) e disponibilizar as imagens dos capítulos de mangá em alta definição, compactados em arquivos .zip e .cbz prontos para leitura, entre outras funcionalidades.
 
 ---
 
