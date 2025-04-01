@@ -4,7 +4,7 @@ export const bodyContent = `
 - <a href="https://www.linkedin.com/company/luizalabs/" target="_blank">Luiza Labs</a> <time>(11/2024 - Atualmente)</time>: Como desenvolvedor back-end, meu objetivo é colaborar com o crescimento das soluções internas oferecidas pela empresa, garantindo entregas que tragam valor aos usuários, sempre almejando um código íntegro e seguro.
   - Desenvolvedor Pleno <time>(11/2024 - Atualmente)</time>
 
-- <a href="https://www.sbsistemas.com.br/" target="_blank">SB Sistemas</a> <time>(04/2024 - 11/2024)</time>: Como desenvolvedor back-end Go, meu objetivo é colaborar com o crescimento dos produtos e soluções oferecidas pela empresa, garantindo entregas que tragam valor aos clientes.
+- <a href="https://www.sbsistemas.com.br/" target="_blank">SB Sistemas</a> <time>(04/2024 - 11/2024)</time>: Como desenvolvedor back-end Go, meu objetivo era colaborar com o crescimento dos produtos e soluções oferecidas pela empresa, garantindo entregas que trouxessem valor aos clientes.
 
 - <a href="https://www.dataintegra.com.br/" target="_blank">DataIntegra</a> <time>(08/2022 - 04/2024)</time>: Como desenvolvedor back-end Node.js, meu objetivo era colaborar com o crescimento da empresa e suas áreas de atuação por meio de integrações voltadas à área da saúde.
   - Desenvolvedor Pleno <time>(02/2023 - 04/2024)</time>
