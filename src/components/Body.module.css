@@ -4,25 +4,54 @@
   margin: 5% auto;
   width: 50%;
   margin-bottom: -6%;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.header>*:hover {
+.header > *:hover {
   cursor: pointer;
   display: inline-block;
   width: 2rem;
   height: 2rem;
-  border-radius: 100%;
-  transition: background-color 0.2s ease;
-  background-color: #27272e;
   align-items: center;
   justify-content: center;
 }
 
+.header a:hover svg {
+  fill: #8A2BE2;
+}
+
 .container {
-  background-color: #0d1117;
+  background-color: #111112;
   margin: 5% auto;
   padding: 50px;
   border-radius: 8px;
-  width: 50%;
+  max-width: 90%;
+  width: 900px;
   overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 30px;
+    margin: 0;
+  }
+
+  .header {
+    gap: 0.5rem;
+    margin-bottom: -8%;
+  }
+
+  .header {
+    width: 70%;
+    justify-content: space-between;
+  }
 }
