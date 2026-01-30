@@ -19,17 +19,13 @@ const LinkText = ({
   return (
     <Link
       href={href}
-      passHref
-      legacyBehavior
-    >
-      <a
-        target={target}
-        rel={rel}
-        className={`text-neutral-200 underline decoration-neutral-500 transition duration-200 ease-in-out hover:decoration-[#8A2BE2]`}
-        style={style}
-      >
-        {children}
-      </a>
+      target={target}
+      rel={rel}
+      className={`text-neutral-200 underline decoration-neutral-500 transition duration-200 ease-in-out hover:decoration-[#8A2BE2]`}
+      style={style}>
+
+      {children}
+
     </Link>
   );
 };

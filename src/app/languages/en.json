@@ -35,6 +35,11 @@
       "href": "https://github.com/Otarossoni/mangadex-downloader",
       "title": "Mangadex Downloader",
       "description": "CLI for downloading high-quality manga chapters."
+    },
+    {
+      "href": "https://github.com/Otarossoni/divergence-meter",
+      "title": "Divergence Meter",
+      "description": "A desktop Divergence Meter inspired by Steins;Gate."
     }
   ],
   "socialLinks": [
