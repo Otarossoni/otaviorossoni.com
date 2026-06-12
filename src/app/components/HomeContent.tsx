@@ -114,14 +114,16 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
 
         {/* Blog */}
         <div className="animate-10">
-          <div className="flex items-center gap-2 pb-6">
+          <div className="group flex items-center gap-2 pb-6">
             <ArticleIcon className="h-3.5 w-3.5" />
-            <h2 className="text-sm text-neutral-500">{t("blogTitle")}</h2>
             <Link
               href="/blog"
-              className="group text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+              className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
             >
-              <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-200 ease-in-out group-hover:translate-x-1" />
+              {t("blogTitle")}
+            </Link>
+            <Link href="/blog">
+              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
             </Link>
           </div>
 
