@@ -42,10 +42,10 @@ const BlogLayout = ({ children, breadcrumbs = [], locale }: BlogLayoutProps) => 
         ...titleToggleStyle,
       }}
     >
-      <div className="mx-8 sm:mx-0 sm:w-120 md:w-160">
+      <div className="w-full px-8 sm:w-120 sm:px-0 md:w-160">
         {/* Header */}
         <div className="animate-5">
-          <div className="flex items-center justify-between pt-16 sm:pt-24 sm:pb-4">
+          <div className="flex items-center justify-between pt-16 sm:pt-24 pb-4">
             <nav className="flex items-center gap-1.5 text-sm font-semibold" style={titleToggleStyle}>
               <Link
                 href={`/${locale}`}
