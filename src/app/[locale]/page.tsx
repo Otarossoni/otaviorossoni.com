@@ -12,7 +12,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const recentPosts = getRecentPosts(locale, 3);
+  const recentPosts = await getRecentPosts(locale, 3);
 
   return <HomeContent recentPosts={recentPosts} locale={locale} />;
 }

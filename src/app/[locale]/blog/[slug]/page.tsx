@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
 
   for (const locale of routing.locales) {
-    const slugs = getAllPostSlugs(locale);
+    const slugs = await getAllPostSlugs(locale);
     for (const slug of slugs) {
       params.push({ locale, slug });
     }
@@ -33,7 +33,7 @@ export default async function PostPage({
   let content: string;
 
   try {
-    const post = getPostBySlug(slug, locale);
+    const post = await getPostBySlug(slug, locale);
     data = post.data;
     content = post.content;
   } catch {
