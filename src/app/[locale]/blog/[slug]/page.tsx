@@ -1,0 +1,74 @@
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { getPostBySlug, getAllPostSlugs, PostData } from "@/lib/mdx";
+import { localeDateString } from "@/lib/locale";
+import { routing } from "@/i18n/routing";
+import BlogLayout from "@/app/components/BlogLayout";
+
+export async function generateStaticParams() {
+  const params: { locale: string; slug: string }[] = [];
+
+  for (const locale of routing.locales) {
+    const slugs = getAllPostSlugs(locale);
+    for (const slug of slugs) {
+      params.push({ locale, slug });
+    }
+  }
+
+  return params;
+}
+
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const t = await getTranslations({ locale });
+
+  let data: PostData;
+  let content: string;
+
+  try {
+    const post = getPostBySlug(slug, locale);
+    data = post.data;
+    content = post.content;
+  } catch {
+    notFound();
+  }
+
+  const dateLocale = localeDateString(locale);
+
+  return (
+    <BlogLayout
+      locale={locale}
+      breadcrumbs={[
+        { label: t("blogTitle"), href: `/${locale}/blog` },
+        { label: data.title },
+      ]}
+    >
+      <article className="prose prose-invert max-w-none">
+        <h1 className="text-5xl font-extrabold mb-4">{data.title}</h1>
+        <p className="text-neutral-500 mb-8">
+          {new Date(data.date + "T00:00:00").toLocaleDateString(dateLocale, {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </p>
+        <MDXRemote
+          source={content}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+              rehypePlugins: [rehypeHighlight],
+            },
+          }}
+        />
+      </article>
+    </BlogLayout>
+  );
+}

@@ -3,8 +3,12 @@
   "description": "Sometimes a code writer, sometimes a reader, but always human.",
   "projectsTitle": "Projects",
   "socialTitle": "Social",
+  "blogTitle": "Blog",
+  "homeTitle": "Home",
   "toggleThemeTitle": "Toggle light and dark mode",
   "toggleLanguageTitle": "Change language",
+  "notFoundTitle": "Page not found",
+  "notFoundBackHome": "Go home",
   "projects": [
     {
       "href": "https://github.com/Otarossoni/projeto-integrador-ads",
@@ -45,28 +49,23 @@
   "socialLinks": [
     {
       "href": "mailto:otarossoni@gmail.com",
-      "text": "Email",
-      "icon": ""
+      "text": "Email"
     },
     {
       "href": "https://www.linkedin.com/in/otavio-monteiro-rossoni/",
-      "text": "LinkedIn",
-      "icon": ""
+      "text": "LinkedIn"
     },
     {
       "href": "https://github.com/Otarossoni",
-      "text": "GitHub",
-      "icon": ""
+      "text": "GitHub"
     },
     {
       "href": "https://x.com/Otarossoni",
-      "text": "X",
-      "icon": ""
+      "text": "X"
     },
     {
       "href": "https://www.goodreads.com/otarossoni",
-      "text": "Goodreads",
-      "icon": ""
+      "text": "Goodreads"
     }
   ]
 }
