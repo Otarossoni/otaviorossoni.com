@@ -50,24 +50,26 @@ export default async function PostPage({
         { label: data.title },
       ]}
     >
+      <h1 className="text-xl sm:text-lg font-semibold mb-4">{data.title}</h1>
+      <p className="text-xs text-neutral-500 mb-8">
+        {new Date(data.date + "T00:00:00").toLocaleDateString(dateLocale, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </p>
       <article className="prose prose-invert max-w-none">
-        <h1 className="text-5xl font-extrabold mb-4">{data.title}</h1>
-        <p className="text-neutral-500 mb-8">
-          {new Date(data.date + "T00:00:00").toLocaleDateString(dateLocale, {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
-        <MDXRemote
-          source={content}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeHighlight],
-            },
-          }}
-        />
+        <div className="overflow-x-auto">
+          <MDXRemote
+            source={content}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+                rehypePlugins: [rehypeHighlight],
+              },
+            }}
+          />
+        </div>
       </article>
     </BlogLayout>
   );
