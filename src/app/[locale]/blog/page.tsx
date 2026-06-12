@@ -25,23 +25,23 @@ export default async function BlogPage({
       locale={locale}
       breadcrumbs={[{ label: t("blogTitle"), href: `/${locale}/blog` }]}
     >
-      <h1 className="text-5xl font-extrabold mb-8">{t("blogTitle")}</h1>
-      <div className="flex flex-col">
+      <h1 className="text-xl sm:text-lg font-semibold mb-8">{t("blogTitle")}</h1>
+      <div className="flex flex-col gap-3">
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group flex justify-between items-start gap-4 py-3 border-b border-neutral-800 transition duration-200 ease-in-out hover:border-neutral-500"
+            className="group flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 transition duration-200 ease-in-out"
           >
             <div className="flex flex-col gap-1">
-              <h2 className="text-sm font-semibold transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
+              <span className="text-sm font-semibold transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
                 {post.title}
-              </h2>
+              </span>
               {post.description && (
                 <p className="text-xs text-neutral-500">{post.description}</p>
               )}
             </div>
-            <span className="text-xs text-neutral-500 whitespace-nowrap">
+            <span className="text-xs text-neutral-500">
               {new Date(post.date + "T00:00:00").toLocaleDateString(dateLocale, {
                 year: "numeric",
                 month: "long",
