@@ -16,7 +16,7 @@ export default async function BlogPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale });
-  const posts = getAllPosts(locale);
+  const posts = await getAllPosts(locale);
 
   const dateLocale = localeDateString(locale);
 
