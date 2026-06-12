@@ -4,8 +4,11 @@
   "projectsTitle": "Projetos",
   "socialTitle": "Social",
   "blogTitle": "Blog",
+  "homeTitle": "Início",
   "toggleThemeTitle": "Alternar tema claro e escuro",
   "toggleLanguageTitle": "Mudar idioma",
+  "notFoundTitle": "Página não encontrada",
+  "notFoundBackHome": "Voltar ao início",
   "projects": [
     {
       "href": "https://github.com/Otarossoni/projeto-integrador-ads",
@@ -46,28 +49,23 @@
   "socialLinks": [
     {
       "href": "mailto:otarossoni@gmail.com",
-      "text": "Email",
-      "icon": ""
+      "text": "Email"
     },
     {
       "href": "https://www.linkedin.com/in/otavio-monteiro-rossoni/",
-      "text": "LinkedIn",
-      "icon": ""
+      "text": "LinkedIn"
     },
     {
       "href": "https://github.com/Otarossoni",
-      "text": "GitHub",
-      "icon": ""
+      "text": "GitHub"
     },
     {
       "href": "https://x.com/Otarossoni",
-      "text": "X",
-      "icon": ""
+      "text": "X"
     },
     {
       "href": "https://www.goodreads.com/otarossoni",
-      "text": "Goodreads",
-      "icon": ""
+      "text": "Goodreads"
     }
   ]
 }

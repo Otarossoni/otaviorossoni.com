@@ -1,8 +1,12 @@
 "use client";
 
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties } from "react";
 import Link from "next/link";
 import { HouseIcon } from "@phosphor-icons/react/dist/ssr";
+import { useTranslations } from "next-intl";
+import { useTheme } from "@/lib/useTheme";
+import { useSwitchLanguage } from "@/lib/useLocale";
+import { localeFlag } from "@/lib/locale";
 
 export interface Breadcrumb {
   label: string;
@@ -12,32 +16,22 @@ export interface Breadcrumb {
 interface BlogLayoutProps {
   children: React.ReactNode;
   breadcrumbs?: Breadcrumb[];
+  locale: string;
 }
 
-const BlogLayout = ({ children, breadcrumbs = [] }: BlogLayoutProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "light") {
-      setIsDarkMode(false);
-    }
-  }, []);
-
-  const handleToggleTheme = () => {
-    setIsDarkMode((prev) => {
-      const next = !prev;
-      localStorage.setItem("theme", next ? "dark" : "light");
-      return next;
-    });
-  };
+const BlogLayout = ({ children, breadcrumbs = [], locale }: BlogLayoutProps) => {
+  const t = useTranslations();
+  const { isDarkMode, handleToggleTheme } = useTheme();
+  const handleSwitchLanguage = useSwitchLanguage(locale);
 
   const titleToggleStyle: CSSProperties = {
     color: isDarkMode ? "#ededed" : "#171717",
-    fontFamily: "Arial, Helvetica, sans-serif",
   };
 
-  const allBreadcrumbs = [{ label: "Home", href: "/" }, ...breadcrumbs];
+  const allBreadcrumbs = [
+    { label: t("homeTitle"), href: `/${locale}` },
+    ...breadcrumbs,
+  ];
 
   return (
     <div
@@ -54,7 +48,7 @@ const BlogLayout = ({ children, breadcrumbs = [] }: BlogLayoutProps) => {
           <div className="flex items-center justify-between pt-16 sm:pt-24 sm:pb-4">
             <nav className="flex items-center gap-1.5 text-sm font-semibold" style={titleToggleStyle}>
               <Link
-                href="/"
+                href={`/${locale}`}
                 className="transition duration-200 ease-in-out hover:opacity-70"
               >
                 <HouseIcon className="h-4 w-4" />
@@ -79,21 +73,29 @@ const BlogLayout = ({ children, breadcrumbs = [] }: BlogLayoutProps) => {
               })}
             </nav>
 
-            <div
-              style={{ cursor: "pointer" }}
-              onClick={handleToggleTheme}
-              aria-label="Toggle theme"
-              title="Toggle theme"
-            >
-              {isDarkMode ? "🌙" : "☀️"}
+            <div className="flex gap-3 select-none">
+              <button
+                onClick={handleToggleTheme}
+                aria-label={t("toggleThemeTitle")}
+                title={t("toggleThemeTitle")}
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit"
+              >
+                {isDarkMode ? "🌙" : "☀️"}
+              </button>
+              <button
+                onClick={handleSwitchLanguage}
+                aria-label={t("toggleLanguageTitle")}
+                title={t("toggleLanguageTitle")}
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit"
+              >
+                {localeFlag(locale)}
+              </button>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="animate-7">
-          {children}
-        </div>
+        <div className="animate-7">{children}</div>
       </div>
     </div>
   );
