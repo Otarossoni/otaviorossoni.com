@@ -10,6 +10,7 @@ import {
   XLogoIcon,
   ArticleIcon,
   ArrowRightIcon,
+  FileTextIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -70,6 +71,17 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
             <h1 className="text-lg font-semibold">{t("title")}</h1>
 
             <div className="flex gap-3 select-none items-center">
+              <div className="flex items-center gap-1.5">
+                <FileTextIcon className="h-3.5 w-3.5" />
+              <a
+                href={t("curriculumPdf")}
+                download
+                className="text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+              >
+                  {t("curriculumTitle")}
+                </a>
+              </div>
+              <span className="text-neutral-500">|</span>
               <span className="text-xs text-neutral-500">v{version}</span>
               <button
                 onClick={handleToggleTheme}
