@@ -8,7 +8,6 @@ import {
   AtIcon,
   UserIcon,
   XLogoIcon,
-  GoodreadsLogoIcon,
   ArticleIcon,
   ArrowRightIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -17,6 +16,7 @@ import { Link } from "@/i18n/navigation";
 import { useTheme } from "@/lib/useTheme";
 import { useSwitchLanguage } from "@/lib/useLocale";
 import { localeFlag } from "@/lib/locale";
+import { version } from "../../../package.json";
 
 import Project, { IProject } from "./Project";
 import SocialLink, { ISocialLink } from "./SocialLink";
@@ -45,8 +45,6 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
         return { ...link, icon: GithubLogoIcon };
       case "X":
         return { ...link, icon: XLogoIcon };
-      case "Goodreads":
-        return { ...link, icon: GoodreadsLogoIcon };
       default:
         return link;
     }
@@ -71,7 +69,8 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
           <div className="flex items-center justify-between pt-16 sm:pt-24 sm:pb-4">
             <h1 className="text-lg font-semibold">{t("title")}</h1>
 
-            <div className="flex gap-3 select-none">
+            <div className="flex gap-3 select-none items-center">
+              <span className="text-xs text-neutral-500">v{version}</span>
               <button
                 onClick={handleToggleTheme}
                 aria-label={t("toggleThemeTitle")}
@@ -105,7 +104,7 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-3 gap-x-8 gap-y-4 pb-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4 pb-12">
             {projects.map((project: IProject) => (
               <Project key={project.href} project={project} style={titleToggleStyle} />
             ))}
@@ -142,9 +141,23 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
 
         {/* Social Links */}
         <div className="animate-15">
-          <div className="flex items-center gap-2 pb-6">
+          <div className="group flex items-center gap-2 pb-6">
             <UserIcon className="h-3.5 w-3.5" />
-            <h2 className="text-sm text-neutral-500">{t("socialTitle")}</h2>
+            <a
+              href="https://links.otaviorossoni.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+            >
+              {t("socialTitle")}
+            </a>
+            <a
+              href="https://links.otaviorossoni.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+            </a>
           </div>
 
           <div className="flex flex-wrap gap-x-8 gap-y-4">
