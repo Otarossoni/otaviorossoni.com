@@ -71,4 +71,5 @@ Acesse [http://localhost:3000](http://localhost:3000).
 | `npm run dev`       | Servidor de desenvolvimento com Turbopack |
 | `npm run build`     | Build de produção                         |
 | `npm start`         | Servidor de produção                      |
+| `npm run lint`      | Verificação de código                     |
 | `npm run typecheck` | Verificação de tipos TypeScript           |
