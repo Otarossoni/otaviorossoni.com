@@ -18,7 +18,7 @@ export default function NotFound() {
       className="flex min-h-screen flex-col items-center justify-center gap-4"
       data-theme={isDarkMode ? "dark" : "light"}
       style={{
-        backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+        backgroundColor: isDarkMode ? "#000000" : "#faf7f0",
         ...titleToggleStyle,
       }}
     >

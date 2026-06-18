@@ -66,7 +66,7 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
       className="flex min-h-screen w-full flex-col items-center pb-12"
       data-theme={isDarkMode ? "dark" : "light"}
       style={{
-        backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+        backgroundColor: isDarkMode ? "#000000" : "#faf7f0",
         ...titleToggleStyle,
       }}
     >
