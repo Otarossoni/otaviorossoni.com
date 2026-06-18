@@ -2,7 +2,7 @@
 
 <div align="center">
   <p>
-    <strong>Portfólio pessoal com blog — minimalista, performático e multilíngue.</strong>
+    <strong>Personal portfolio with blog — minimalist, performant, and multilingual.</strong>
   </p>
 
   <p>
@@ -16,60 +16,60 @@
 
 ---
 
-## 🚀 Sobre
+## About
 
-Portfólio pessoal de **Otávio Monteiro Rossoni**. Além de vitrine de projetos, o site tem um blog integrado com suporte a Markdown e syntax highlighting.
+My personal portfolio. Beyond showcasing my projects, the site features an integrated blog with Markdown support and syntax highlighting.
 
-## ✨ Funcionalidades
+## Features
 
-- 🌍 **Internacionalização**: Português (PT), Inglês (EN) e Espanhol (ES) com next-intl.
-- ⚡ **Performance**: Renderização estática com Next.js App Router + Turbopack.
-- 📝 **Blog MDX**: Posts com GitHub Flavored Markdown, syntax highlighting e tipografia estilizada.
-- 🌙 **Modo escuro/claro**: Alternância suave com preferência salva no navegador.
-- 🎨 **UI limpa**: Tailwind CSS v4, Phosphor Icons, fonte Geist.
+- 🌍 **Internationalization**: Portuguese (PT), English (EN), and Spanish (ES) with next-intl.
+- ⚡ **Performance**: Static rendering with Next.js App Router + Turbopack.
+- 📝 **MDX Blog**: Posts with GitHub Flavored Markdown, syntax highlighting, and styled typography.
+- 🌙 **Dark/Light mode**: Smooth toggle with preference saved in the browser.
+- 🎨 **Clean UI**: Tailwind CSS v4, Phosphor Icons, Geist font.
 
-## 🛠️ Stack
+## Stack
 
-| Categoria       | Tecnologia                             |
+| Category        | Technology                             |
 | --------------- | -------------------------------------- |
 | **Framework**   | Next.js 16 (App Router)                |
-| **Linguagem**   | TypeScript                             |
-| **Estilização** | Tailwind CSS 4                         |
-| **Ícones**      | Phosphor Icons                         |
+| **Language**    | TypeScript                             |
+| **Styling**     | Tailwind CSS 4                         |
+| **Icons**       | Phosphor Icons                         |
 | **i18n**        | next-intl                              |
 | **Blog**        | MDX, next-mdx-remote, rehype-highlight |
-| **Fonte**       | Geist (Google Fonts)                   |
+| **Font**        | Geist (Google Fonts)                   |
 
-## 🚀 Começando
+## Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js 20.x+
 
-### Instalação
+### Installation
 
 ```bash
 # Clone
 git clone https://github.com/Otarossoni/otaviorossoni.com.git
 
-# Entre na pasta
+# Enter the directory
 cd otaviorossoni.com
 
-# Instale as dependências
+# Install dependencies
 npm install
 
-# Inicie o servidor de desenvolvimento
+# Start the development server
 npm run dev
 ```
 
-Acesse [http://localhost:3000](http://localhost:3000).
+Access [http://localhost:3000](http://localhost:3000).
 
-## 📦 Comandos
+## Commands
 
-| Comando             | Descrição                                 |
-| ------------------- | ----------------------------------------- |
-| `npm run dev`       | Servidor de desenvolvimento com Turbopack |
-| `npm run build`     | Build de produção                         |
-| `npm start`         | Servidor de produção                      |
-| `npm run lint`      | Verificação de código                     |
-| `npm run typecheck` | Verificação de tipos TypeScript           |
+| Command           | Description                             |
+| ----------------- | --------------------------------------- |
+| `npm run dev`     | Development server with Turbopack       |
+| `npm run build`   | Production build                        |
+| `npm start`       | Production server                       |
+| `npm run lint`    | Code linting                            |
+| `npm run typecheck` | TypeScript type checking              |
