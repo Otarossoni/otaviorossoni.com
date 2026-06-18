@@ -35,29 +35,32 @@ export default function BlogPostList({ initialPosts, hasMore, locale }: BlogPost
 
   return (
     <div className="flex flex-col gap-3">
-      {posts.map((post) => (
-        <Link
-          key={post.slug}
-          href={`/blog/${post.slug}`}
-          className="group flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 transition duration-200 ease-in-out"
-        >
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-semibold transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
-              {post.title}
+      {posts.map((post) => {
+        const [year, month, day] = post.date.split("-");
+        return (
+          <Link
+            key={post.slug}
+            href={`/blog/${year}/${month}/${day}/${post.slug}`}
+            className="group flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1 sm:gap-4 transition duration-200 ease-in-out"
+          >
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-semibold transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
+                {post.title}
+              </span>
+              {post.description && (
+                <p className="text-xs text-neutral-500">{post.description}</p>
+              )}
+            </div>
+            <span className="text-xs text-neutral-500">
+              {new Date(post.date + "T00:00:00").toLocaleDateString(dateLocale, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </span>
-            {post.description && (
-              <p className="text-xs text-neutral-500">{post.description}</p>
-            )}
-          </div>
-          <span className="text-xs text-neutral-500">
-            {new Date(post.date + "T00:00:00").toLocaleDateString(dateLocale, {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </span>
-        </Link>
-      ))}
+          </Link>
+        );
+      })}
 
       {hasMorePosts && (
         <button

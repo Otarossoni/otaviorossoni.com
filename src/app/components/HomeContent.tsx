@@ -139,15 +139,18 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
           </div>
 
           <div className="flex flex-col gap-3 pb-12">
-            {recentPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="underline decoration-neutral-500 transition duration-200 ease-in-out hover:decoration-[#8A2BE2]"
-              >
-                <span className="text-sm">{post.title}</span>
-              </Link>
-            ))}
+            {recentPosts.map((post) => {
+              const [year, month, day] = post.date.split("-");
+              return (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${year}/${month}/${day}/${post.slug}`}
+                  className="underline decoration-neutral-500 transition duration-200 ease-in-out hover:decoration-[#8A2BE2]"
+                >
+                  <span className="text-sm">{post.title}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
 

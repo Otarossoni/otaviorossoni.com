@@ -28,6 +28,10 @@ export interface PostMeta {
   date: string;
 }
 
+function cleanSlug(fileName: string): string {
+  return fileName.replace(/\.mdx$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+}
+
 async function fetchGitHubDir(locale: string): Promise<GitHubFile[]> {
   const res = await fetch(`${API_BASE}/${locale}?ref=${GITHUB_BRANCH}`, {
     headers: { "User-Agent": "otaviorossoni-blog" },
@@ -44,9 +48,9 @@ async function fetchGitHubDir(locale: string): Promise<GitHubFile[]> {
 
 async function fetchFileContent(
   locale: string,
-  slug: string,
+  fileName: string,
 ): Promise<string | null> {
-  const res = await fetch(`${RAW_BASE}/${locale}/${slug}.mdx`, {
+  const res = await fetch(`${RAW_BASE}/${locale}/${fileName}.mdx`, {
     headers: { "User-Agent": "otaviorossoni-blog" },
     next: { revalidate: CACHE_REVALIDATE },
   });
@@ -60,7 +64,15 @@ export const getPostBySlug = unstable_cache(
     slug: string,
     locale: string,
   ): Promise<{ data: PostData; content: string }> => {
-    const fileContent = await fetchFileContent(locale, slug);
+    const files = await fetchGitHubDir(locale);
+    const file = files.find((f) => cleanSlug(f.name) === slug);
+
+    if (!file) {
+      throw new Error(`Post not found: ${locale}/${slug}`);
+    }
+
+    const fileName = file.name.replace(/\.mdx$/, "");
+    const fileContent = await fetchFileContent(locale, fileName);
 
     if (!fileContent) {
       throw new Error(`Post not found: ${locale}/${slug}`);
@@ -80,7 +92,7 @@ export const getPostBySlug = unstable_cache(
 export const getAllPostSlugs = unstable_cache(
   async (locale: string): Promise<string[]> => {
     const files = await fetchGitHubDir(locale);
-    return files.map((file) => file.name.replace(/\.mdx$/, ""));
+    return files.map((file) => cleanSlug(file.name));
   },
   [`post-slugs-${GITHUB_BRANCH}`],
   { revalidate: CACHE_REVALIDATE },
@@ -92,8 +104,9 @@ export const getAllPosts = unstable_cache(
 
     const posts = await Promise.all(
       files.map(async (file) => {
-        const slug = file.name.replace(/\.mdx$/, "");
-        const content = await fetchFileContent(locale, slug);
+        const slug = cleanSlug(file.name);
+        const fileName = file.name.replace(/\.mdx$/, "");
+        const content = await fetchFileContent(locale, fileName);
 
         if (!content) return null;
 

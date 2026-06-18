@@ -3,18 +3,25 @@ import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllPostSlugs, PostData } from "@/lib/mdx";
+import { getPostBySlug, getAllPosts, PostData } from "@/lib/mdx";
 import { localeDateString } from "@/lib/locale";
 import { routing } from "@/i18n/routing";
 import BlogLayout from "@/app/components/BlogLayout";
 
 export async function generateStaticParams() {
-  const params: { locale: string; slug: string }[] = [];
+  const params: {
+    locale: string;
+    year: string;
+    month: string;
+    day: string;
+    slug: string;
+  }[] = [];
 
   for (const locale of routing.locales) {
-    const slugs = await getAllPostSlugs(locale);
-    for (const slug of slugs) {
-      params.push({ locale, slug });
+    const posts = await getAllPosts(locale);
+    for (const post of posts) {
+      const [year, month, day] = post.date.split("-");
+      params.push({ locale, year, month, day, slug: post.slug });
     }
   }
 
@@ -24,7 +31,13 @@ export async function generateStaticParams() {
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{
+    locale: string;
+    year: string;
+    month: string;
+    day: string;
+    slug: string;
+  }>;
 }) {
   const { locale, slug } = await params;
   const t = await getTranslations({ locale });
