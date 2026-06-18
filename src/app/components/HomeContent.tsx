@@ -73,10 +73,10 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
       <div className="w-full px-8 sm:w-120 sm:px-0 md:w-160">
         {/* Header */}
         <div className="animate-5">
-          <div className="flex items-center justify-between pt-16 sm:pt-24 sm:pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-16 sm:pt-24 sm:pb-4 gap-3 sm:gap-0">
             <h1 className="text-lg font-semibold">{t("title")}</h1>
 
-            <div className="flex gap-3 select-none items-center">
+            <div className="flex gap-3 select-none items-center sm:justify-end">
               <div className="flex items-center gap-1.5">
                 <FileTextIcon className="h-3.5 w-3.5" />
               <a
