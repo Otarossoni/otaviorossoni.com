@@ -1,9 +1,18 @@
-import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
 import { unstable_cache } from "next/cache";
 
-const postsDirectory = path.join(process.cwd(), "src/blog");
+const GITHUB_REPO = "Otarossoni/content-otaviorossoni.com";
+const GITHUB_BRANCH = "main";
+const BLOG_PATH = "blog";
+
+const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_REPO}/${GITHUB_BRANCH}/${BLOG_PATH}`;
+const API_BASE = `https://api.github.com/repos/${GITHUB_REPO}/contents/${BLOG_PATH}`;
+
+interface GitHubFile {
+  name: string;
+  type: string;
+  download_url: string;
+}
 
 export interface PostData {
   title: string;
@@ -18,13 +27,35 @@ export interface PostMeta {
   date: string;
 }
 
+async function fetchGitHubDir(locale: string): Promise<GitHubFile[]> {
+  const res = await fetch(`${API_BASE}/${locale}`, {
+    next: { revalidate: 3600, tags: ["blog"] },
+  });
+
+  if (!res.ok) return [];
+
+  const data: GitHubFile[] = await res.json();
+  return data.filter((item) => item.name.endsWith(".mdx") && item.type === "file");
+}
+
+async function fetchFileContent(locale: string, slug: string): Promise<string | null> {
+  const res = await fetch(`${RAW_BASE}/${locale}/${slug}.mdx`, {
+    next: { revalidate: 3600, tags: ["blog"] },
+  });
+
+  if (!res.ok) return null;
+  return res.text();
+}
+
 export const getPostBySlug = unstable_cache(
   async (slug: string, locale: string): Promise<{ data: PostData; content: string }> => {
-    const localeDir = path.join(postsDirectory, locale);
-    const fullPath = path.join(localeDir, `${slug}.mdx`);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const fileContent = await fetchFileContent(locale, slug);
 
-    const { data, content } = matter(fileContents);
+    if (!fileContent) {
+      throw new Error(`Post not found: ${locale}/${slug}`);
+    }
+
+    const { data, content } = matter(fileContent);
 
     return {
       data: data as PostData,
@@ -37,11 +68,8 @@ export const getPostBySlug = unstable_cache(
 
 export const getAllPostSlugs = unstable_cache(
   async (locale: string): Promise<string[]> => {
-    const localeDir = path.join(postsDirectory, locale);
-    if (!fs.existsSync(localeDir)) return [];
-
-    const fileNames = fs.readdirSync(localeDir);
-    return fileNames.map((fileName) => fileName.replace(/\.mdx$/, ""));
+    const files = await fetchGitHubDir(locale);
+    return files.map((file) => file.name.replace(/\.mdx$/, ""));
   },
   ["post-slugs"],
   { tags: ["blog"] }
@@ -49,18 +77,16 @@ export const getAllPostSlugs = unstable_cache(
 
 export const getAllPosts = unstable_cache(
   async (locale: string): Promise<PostMeta[]> => {
-    const localeDir = path.join(postsDirectory, locale);
-    if (!fs.existsSync(localeDir)) return [];
+    const files = await fetchGitHubDir(locale);
 
-    const fileNames = fs.readdirSync(localeDir);
+    const posts = await Promise.all(
+      files.map(async (file) => {
+        const slug = file.name.replace(/\.mdx$/, "");
+        const content = await fetchFileContent(locale, slug);
 
-    return fileNames
-      .filter((fileName) => fileName.endsWith(".mdx"))
-      .map((fileName) => {
-        const slug = fileName.replace(/\.mdx$/, "");
-        const fullPath = path.join(localeDir, fileName);
-        const fileContents = fs.readFileSync(fullPath, "utf8");
-        const { data } = matter(fileContents);
+        if (!content) return null;
+
+        const { data } = matter(content);
 
         return {
           slug,
@@ -69,6 +95,10 @@ export const getAllPosts = unstable_cache(
           date: data.date || "",
         };
       })
+    );
+
+    return posts
+      .filter((post): post is PostMeta => post !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   },
   ["all-posts"],
