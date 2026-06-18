@@ -74,16 +74,59 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
         {/* Header */}
         <div className="animate-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-16 sm:pt-24 sm:pb-4 gap-3 sm:gap-0">
-            <h1 className="text-lg font-semibold">{t("title")}</h1>
+            {/* Line 1 */}
+            <div className="flex items-center justify-between sm:justify-start sm:gap-3">
+              <h1 className="text-lg font-semibold">{t("title")}</h1>
+              <div className="flex items-center gap-1.5 sm:hidden">
+                <div className="flex items-center gap-1.5">
+                  <FileTextIcon className="h-3.5 w-3.5" />
+                  <a
+                    href={t("curriculumPdf")}
+                    download
+                    className="text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+                  >
+                    {t("curriculumTitle")}
+                  </a>
+                </div>
+                <span className="text-neutral-500">|</span>
+                <span className="text-xs text-neutral-500">v{version}</span>
+              </div>
+            </div>
 
-            <div className="flex gap-3 select-none items-center sm:justify-end">
+            {/* Line 2 (mobile) */}
+            <div className="flex gap-3 select-none items-center sm:hidden">
+              <a
+                href={rssHref}
+                aria-label={t("rssButtonTitle")}
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+              >
+                <RssIcon className="h-5 w-5" />
+              </a>
+              <button
+                onClick={handleToggleTheme}
+                aria-label={t("toggleThemeTitle")}
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+              >
+                {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
+              </button>
+              <button
+                onClick={handleSwitchLanguage}
+                aria-label={t("toggleLanguageTitle")}
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+              >
+                <TranslateIcon className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Desktop: all in one line */}
+            <div className="hidden sm:flex gap-3 select-none items-center">
               <div className="flex items-center gap-1.5">
                 <FileTextIcon className="h-3.5 w-3.5" />
-              <a
-                href={t("curriculumPdf")}
-                download
-                className="text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-              >
+                <a
+                  href={t("curriculumPdf")}
+                  download
+                  className="text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+                >
                   {t("curriculumTitle")}
                 </a>
               </div>
