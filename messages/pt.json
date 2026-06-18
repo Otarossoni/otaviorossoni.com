@@ -13,6 +13,9 @@
   "notFoundBackHome": "Voltar ao início",
   "loadMore": "Carregar mais",
   "loading": "Carregando...",
+  "rssButtonTitle": "Assinar RSS",
+  "rssTitle": "Blog de Otávio Rossoni",
+  "rssDescription": "Últimas publicações do blog.",
   "projects": [
     {
       "href": "https://github.com/Otarossoni/projeto-integrador-ads",

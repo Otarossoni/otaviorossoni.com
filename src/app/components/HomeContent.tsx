@@ -11,6 +11,7 @@ import {
   ArticleIcon,
   ArrowRightIcon,
   FileTextIcon,
+  RssIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -23,6 +24,8 @@ import Project, { IProject } from "./Project";
 import SocialLink, { ISocialLink } from "./SocialLink";
 import { PostMeta } from "@/lib/mdx";
 
+import { routing } from "@/i18n/routing";
+
 interface HomeContentProps {
   recentPosts: PostMeta[];
   locale: string;
@@ -33,6 +36,7 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
   const { isDarkMode, handleToggleTheme } = useTheme();
   const handleSwitchLanguage = useSwitchLanguage(locale);
 
+  const rssHref = locale === "pt" ? "/rss.xml" : `/${locale}/rss.xml`;
   const projects = t.raw("projects") as IProject[];
   const socialLinks = t.raw("socialLinks") as ISocialLink[];
 
@@ -83,6 +87,14 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
               </div>
               <span className="text-neutral-500">|</span>
               <span className="text-xs text-neutral-500">v{version}</span>
+              <span className="text-neutral-500">|</span>
+              <a
+                href={rssHref}
+                aria-label={t("rssButtonTitle")}
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+              >
+                <RssIcon className="h-5 w-5" />
+              </a>
               <button
                 onClick={handleToggleTheme}
                 aria-label={t("toggleThemeTitle")}
