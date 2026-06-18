@@ -14,7 +14,7 @@ import {
   RssIcon,
   SunIcon,
   MoonIcon,
-  GlobeIcon,
+  TranslateIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
@@ -109,7 +109,7 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
                 aria-label={t("toggleLanguageTitle")}
                 className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
               >
-                <GlobeIcon className="h-5 w-5" />
+                <TranslateIcon className="h-5 w-5" />
               </button>
             </div>
           </div>

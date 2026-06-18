@@ -2,7 +2,7 @@
 
 import { CSSProperties } from "react";
 import Link from "next/link";
-import { HouseIcon, SunIcon, MoonIcon, GlobeIcon } from "@phosphor-icons/react/dist/ssr";
+import { HouseIcon, SunIcon, MoonIcon, TranslateIcon } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/lib/useTheme";
 import { useSwitchLanguage } from "@/lib/useLocale";
@@ -85,7 +85,7 @@ const BlogLayout = ({ children, breadcrumbs = [], locale }: BlogLayoutProps) => 
                 aria-label={t("toggleLanguageTitle")}
                 className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
               >
-                <GlobeIcon className="h-5 w-5" />
+                <TranslateIcon className="h-5 w-5" />
               </button>
             </div>
           </div>
