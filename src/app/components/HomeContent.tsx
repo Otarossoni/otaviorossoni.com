@@ -12,12 +12,14 @@ import {
   ArrowRightIcon,
   FileTextIcon,
   RssIcon,
+  SunIcon,
+  MoonIcon,
+  GlobeIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useTheme } from "@/lib/useTheme";
 import { useSwitchLanguage } from "@/lib/useLocale";
-import { localeFlag } from "@/lib/locale";
 import { version } from "../../../package.json";
 
 import Project, { IProject } from "./Project";
@@ -98,18 +100,16 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
               <button
                 onClick={handleToggleTheme}
                 aria-label={t("toggleThemeTitle")}
-                title={t("toggleThemeTitle")}
-                className="cursor-pointer bg-transparent border-none p-0 text-inherit"
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
               >
-                {isDarkMode ? "🌙" : "☀️"}
+                {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
               </button>
               <button
                 onClick={handleSwitchLanguage}
                 aria-label={t("toggleLanguageTitle")}
-                title={t("toggleLanguageTitle")}
-                className="cursor-pointer bg-transparent border-none p-0 text-inherit"
+                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
               >
-                {localeFlag(locale)}
+                <GlobeIcon className="h-5 w-5" />
               </button>
             </div>
           </div>
