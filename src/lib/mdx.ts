@@ -4,6 +4,7 @@ import { unstable_cache } from "next/cache";
 const GITHUB_REPO = "Otarossoni/content-otaviorossoni.com";
 const GITHUB_BRANCH = "main";
 const BLOG_PATH = "blog";
+const CACHE_REVALIDATE = 180;
 
 const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_REPO}/${GITHUB_BRANCH}/${BLOG_PATH}`;
 const API_BASE = `https://api.github.com/repos/${GITHUB_REPO}/contents/${BLOG_PATH}`;
@@ -28,19 +29,26 @@ export interface PostMeta {
 }
 
 async function fetchGitHubDir(locale: string): Promise<GitHubFile[]> {
-  const res = await fetch(`${API_BASE}/${locale}`, {
-    next: { revalidate: 3600, tags: ["blog"] },
+  const res = await fetch(`${API_BASE}/${locale}?ref=${GITHUB_BRANCH}`, {
+    headers: { "User-Agent": "otaviorossoni-blog" },
+    next: { revalidate: CACHE_REVALIDATE },
   });
 
   if (!res.ok) return [];
 
   const data: GitHubFile[] = await res.json();
-  return data.filter((item) => item.name.endsWith(".mdx") && item.type === "file");
+  return data.filter(
+    (item) => item.name.endsWith(".mdx") && item.type === "file",
+  );
 }
 
-async function fetchFileContent(locale: string, slug: string): Promise<string | null> {
+async function fetchFileContent(
+  locale: string,
+  slug: string,
+): Promise<string | null> {
   const res = await fetch(`${RAW_BASE}/${locale}/${slug}.mdx`, {
-    next: { revalidate: 3600, tags: ["blog"] },
+    headers: { "User-Agent": "otaviorossoni-blog" },
+    next: { revalidate: CACHE_REVALIDATE },
   });
 
   if (!res.ok) return null;
@@ -48,7 +56,10 @@ async function fetchFileContent(locale: string, slug: string): Promise<string | 
 }
 
 export const getPostBySlug = unstable_cache(
-  async (slug: string, locale: string): Promise<{ data: PostData; content: string }> => {
+  async (
+    slug: string,
+    locale: string,
+  ): Promise<{ data: PostData; content: string }> => {
     const fileContent = await fetchFileContent(locale, slug);
 
     if (!fileContent) {
@@ -62,8 +73,8 @@ export const getPostBySlug = unstable_cache(
       content,
     };
   },
-  ["post-by-slug"],
-  { tags: ["blog"] }
+  [`post-by-slug-${GITHUB_BRANCH}`],
+  { revalidate: CACHE_REVALIDATE },
 );
 
 export const getAllPostSlugs = unstable_cache(
@@ -71,8 +82,8 @@ export const getAllPostSlugs = unstable_cache(
     const files = await fetchGitHubDir(locale);
     return files.map((file) => file.name.replace(/\.mdx$/, ""));
   },
-  ["post-slugs"],
-  { tags: ["blog"] }
+  [`post-slugs-${GITHUB_BRANCH}`],
+  { revalidate: CACHE_REVALIDATE },
 );
 
 export const getAllPosts = unstable_cache(
@@ -94,18 +105,21 @@ export const getAllPosts = unstable_cache(
           description: data.description || "",
           date: data.date || "",
         };
-      })
+      }),
     );
 
     return posts
       .filter((post): post is PostMeta => post !== null)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   },
-  ["all-posts"],
-  { tags: ["blog"] }
+  [`all-posts-${GITHUB_BRANCH}`],
+  { revalidate: CACHE_REVALIDATE },
 );
 
-export async function getRecentPosts(locale: string, limit: number = 5): Promise<PostMeta[]> {
+export async function getRecentPosts(
+  locale: string,
+  limit: number = 5,
+): Promise<PostMeta[]> {
   const posts = await getAllPosts(locale);
   return posts.slice(0, limit);
 }

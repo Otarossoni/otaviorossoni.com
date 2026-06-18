@@ -11,6 +11,8 @@
   "toggleLanguageTitle": "Change language",
   "notFoundTitle": "Page not found",
   "notFoundBackHome": "Go home",
+  "loadMore": "Load more",
+  "loading": "Loading...",
   "projects": [
     {
       "href": "https://github.com/Otarossoni/projeto-integrador-ads",
