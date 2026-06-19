@@ -16,43 +16,6 @@
   "rssButtonTitle": "Subscribe to RSS",
   "rssTitle": "Otávio Rossoni's Blog",
   "rssDescription": "Latest blog posts.",
-  "projects": [
-    {
-      "href": "https://github.com/Otarossoni/projeto-integrador-ads",
-      "title": "ADS Integrator",
-      "description": "Digital promotions platform built with MERN stack."
-    },
-    {
-      "href": "https://github.com/Otarossoni/upf-oficina-cleannode",
-      "title": "Cleannode",
-      "description": "TypeScript workshop on implementing Clean Code."
-    },
-    {
-      "href": "https://github.com/Otarossoni/otaviorossoni.com",
-      "title": "Personal Website",
-      "description": "Personal portfolio with contact and projects."
-    },
-    {
-      "href": "https://github.com/Otarossoni/desafio-luiza-labs",
-      "title": "Luiza Labs Challenge",
-      "description": "Luiza Labs's technical challenge: a CEP lookup service."
-    },
-    {
-      "href": "https://github.com/Otarossoni/data-structures-and-algorithms.lang",
-      "title": "DSA.lang",
-      "description": "A Developer's sharpening stone for logical thinking."
-    },
-    {
-      "href": "https://github.com/Otarossoni/mangadex-downloader",
-      "title": "Mangadex Downloader",
-      "description": "CLI for downloading high-quality manga chapters."
-    },
-    {
-      "href": "https://github.com/Otarossoni/divergence-meter",
-      "title": "Divergence Meter",
-      "description": "A desktop Divergence Meter inspired by Steins;Gate."
-    }
-  ],
   "socialLinks": [
     {
       "href": "mailto:otarossoni@gmail.com",

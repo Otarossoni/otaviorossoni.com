@@ -16,43 +16,6 @@
   "rssButtonTitle": "Suscribirse al RSS",
   "rssTitle": "Blog de Otávio Rossoni",
   "rssDescription": "Últimas publicaciones del blog.",
-  "projects": [
-    {
-      "href": "https://github.com/Otarossoni/projeto-integrador-ads",
-      "title": "ADS Integrador",
-      "description": "Plataforma de promociones digitales construida con el stack MERN."
-    },
-    {
-      "href": "https://github.com/Otarossoni/upf-oficina-cleannode",
-      "title": "Cleannode",
-      "description": "Taller de TypeScript sobre cómo implementar Clean Code."
-    },
-    {
-      "href": "https://github.com/Otarossoni/otaviorossoni.com",
-      "title": "Sitio Web Personal",
-      "description": "Portafolio personal con información de contacto y proyectos."
-    },
-    {
-      "href": "https://github.com/Otarossoni/desafio-luiza-labs",
-      "title": "Desafío Luiza Labs",
-      "description": "Desafío técnico de Luiza Labs: un servicio de consulta de código postal."
-    },
-    {
-      "href": "https://github.com/Otarossoni/data-structures-and-algorithms.lang",
-      "title": "DSA.lang",
-      "description": "Una piedra de afilar de desarrollador para el pensamiento lógico."
-    },
-    {
-      "href": "https://github.com/Otarossoni/mangadex-downloader",
-      "title": "Mangadex Downloader",
-      "description": "CLI para descargar capítulos de manga en alta calidad."
-    },
-    {
-      "href": "https://github.com/Otarossoni/divergence-meter",
-      "title": "Divergence Meter",
-      "description": "Un Divergence Meter de escritorio inspirado en Steins;Gate."
-    }
-  ],
   "socialLinks": [
     {
       "href": "mailto:otarossoni@gmail.com",

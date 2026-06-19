@@ -22,24 +22,26 @@ import { useTheme } from "@/lib/useTheme";
 import { useSwitchLanguage } from "@/lib/useLocale";
 import { version } from "../../../package.json";
 
-import Project, { IProject } from "./Project";
+import { IProject } from "./Project";
+import LinkText from "./LinkText";
 import SocialLink, { ISocialLink } from "./SocialLink";
 import { PostMeta } from "@/lib/mdx";
+import { ProjectMeta } from "@/lib/projects";
 
 import { routing } from "@/i18n/routing";
 
 interface HomeContentProps {
   recentPosts: PostMeta[];
+  recentProjects: ProjectMeta[];
   locale: string;
 }
 
-export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
+export default function HomeContent({ recentPosts, recentProjects, locale }: HomeContentProps) {
   const t = useTranslations();
   const { isDarkMode, handleToggleTheme } = useTheme();
   const handleSwitchLanguage = useSwitchLanguage(locale);
 
   const rssHref = locale === "pt" ? "/rss.xml" : `/${locale}/rss.xml`;
-  const projects = t.raw("projects") as IProject[];
   const socialLinks = t.raw("socialLinks") as ISocialLink[];
 
   const socialLinksWithIcons: ISocialLink[] = socialLinks.map((link) => {
@@ -164,16 +166,27 @@ export default function HomeContent({ recentPosts, locale }: HomeContentProps) {
 
         {/* Projects */}
         <div className="animate-7">
-          <div className="flex items-center gap-2 pb-6">
+          <div className="group flex items-center gap-2 pb-6">
             <CodeIcon className="h-3.5 w-3.5" />
-            <h2 className="text-sm text-neutral-500">
+            <Link
+              href="/projects"
+              className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+            >
               {t("projectsTitle")}
-            </h2>
+            </Link>
+            <Link href="/projects">
+              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4 pb-12">
-            {projects.map((project: IProject) => (
-              <Project key={project.href} project={project} style={titleToggleStyle} />
+            {recentProjects.map((project) => (
+              <div key={project.slug} className="flex flex-col gap-2">
+                <div className="flex gap-2">
+                  <LinkText href={project.href} style={titleToggleStyle}>{project.title}</LinkText>
+                </div>
+                <p className="text-sm text-neutral-500">{project.description}</p>
+              </div>
             ))}
           </div>
         </div>
