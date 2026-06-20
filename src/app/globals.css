@@ -17,6 +17,61 @@ html, body {
   background-size: 24px 24px;
 }
 
+.project-card {
+  background-image: none;
+}
+
+[data-theme="dark"] .project-card {
+  border-color: #262626;
+  background-color: #000000;
+}
+
+[data-theme="dark"] .project-card:hover {
+  background-color: #171717;
+  border-color: #8A2BE2;
+}
+
+[data-theme="light"] .project-card {
+  border-color: #e5e5e5;
+  background-color: #faf7f0;
+}
+
+[data-theme="light"] .project-card:hover {
+  background-color: #f5f5f5;
+  border-color: #8A2BE2;
+}
+
+[data-theme="dark"] .project-card-title {
+  color: #ededed;
+}
+
+[data-theme="light"] .project-card-title {
+  color: #171717;
+}
+
+.project-card-ghost {
+  background-image: none;
+}
+
+[data-theme="dark"] .project-card-ghost {
+  border-color: rgba(38, 38, 38, 0.5);
+  background-color: #000000;
+}
+
+[data-theme="dark"] .project-card-ghost:hover {
+  background-color: #171717;
+  border-color: #8A2BE2;
+}
+
+[data-theme="light"] .project-card-ghost {
+  border-color: #e5e5e5;
+  background-color: #faf7f0;
+}
+
+[data-theme="light"] .project-card-ghost:hover {
+  background-color: #f5f5f5;
+  border-color: #8A2BE2;
+}
 
 @layer components {
   ::selection {

@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { ProjectMeta } from "@/lib/projects";
 import { getPaginatedProjects } from "@/lib/actions";
-import LinkText from "./LinkText";
-import { useTheme } from "@/lib/useTheme";
+import ProjectCard from "./ProjectCard";
 
 interface ProjectListProps {
   initialProjects: ProjectMeta[];
@@ -19,11 +18,6 @@ export default function ProjectList({ initialProjects, hasMore, locale }: Projec
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMoreProjects, setHasMore] = useState(hasMore);
   const t = useTranslations();
-  const { isDarkMode } = useTheme();
-
-  const titleStyle = {
-    color: isDarkMode ? "#ededed" : "#171717",
-  };
 
   const handleLoadMore = async () => {
     setLoading(true);
@@ -39,14 +33,9 @@ export default function ProjectList({ initialProjects, hasMore, locale }: Projec
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4">
+      <div className="flex flex-col gap-4">
         {projects.map((project) => (
-          <div key={project.slug} className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              <LinkText href={project.href} style={titleStyle}>{project.title}</LinkText>
-            </div>
-            <p className="text-sm text-neutral-500">{project.description}</p>
-          </div>
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
 

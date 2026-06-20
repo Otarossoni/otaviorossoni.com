@@ -10,7 +10,7 @@ import {
   XLogoIcon,
   NotePencilIcon,
   ArrowRightIcon,
-  FileTextIcon,
+  DownloadSimpleIcon,
   SunIcon,
   MoonIcon,
   TranslateIcon,
@@ -21,8 +21,7 @@ import { useTheme } from "@/lib/useTheme";
 import { useSwitchLanguage } from "@/lib/useLocale";
 import { version } from "../../../package.json";
 
-import { IProject } from "./Project";
-import LinkText from "./LinkText";
+import ProjectCard from "./ProjectCard";
 import SocialLink, { ISocialLink } from "./SocialLink";
 import { PostMeta } from "@/lib/mdx";
 import { ProjectMeta } from "@/lib/projects";
@@ -96,7 +95,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             {/* Line 2 (mobile) */}
             <div className="flex items-center gap-1.5 sm:hidden">
               <div className="flex items-center gap-1.5">
-                <FileTextIcon className="h-4 w-4" />
+                <DownloadSimpleIcon className="h-4 w-4" />
                 <a
                   href={t("curriculumPdf")}
                   download
@@ -112,7 +111,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             {/* Desktop: all in one line */}
             <div className="hidden sm:flex gap-3 select-none items-center">
               <div className="flex items-center gap-1.5">
-                <FileTextIcon className="h-4 w-4" />
+                <DownloadSimpleIcon className="h-4 w-4" />
                 <a
                   href={t("curriculumPdf")}
                   download
@@ -161,15 +160,19 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4 pb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-12">
             {recentProjects.map((project) => (
-              <div key={project.slug} className="flex flex-col gap-2">
-                <div className="flex gap-2">
-                  <LinkText href={project.href} style={titleToggleStyle}>{project.title}</LinkText>
-                </div>
-                <p className="text-sm text-neutral-500">{project.description}</p>
-              </div>
+              <ProjectCard key={project.slug} project={project} showDuration={false} />
             ))}
+            <Link
+              href="/projects"
+              className="project-card-ghost group flex items-center justify-center gap-2 rounded-lg border p-4 cursor-pointer"
+            >
+              <span className="text-sm text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
+                {t("seeOlderProjects")}
+              </span>
+              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
 
