@@ -164,6 +164,15 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             {recentProjects.map((project) => (
               <ProjectCard key={project.slug} project={project} showDuration={false} />
             ))}
+            <Link
+              href="/projects"
+              className="project-card-ghost group flex items-center justify-center gap-2 rounded-lg border p-4 cursor-pointer"
+            >
+              <span className="text-sm text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
+                {t("seeOlderProjects")}
+              </span>
+              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
 
