@@ -8,10 +8,9 @@ import {
   AtIcon,
   UserIcon,
   XLogoIcon,
-  ArticleIcon,
+  NotePencilIcon,
   ArrowRightIcon,
   FileTextIcon,
-  RssIcon,
   SunIcon,
   MoonIcon,
   TranslateIcon,
@@ -28,8 +27,6 @@ import SocialLink, { ISocialLink } from "./SocialLink";
 import { PostMeta } from "@/lib/mdx";
 import { ProjectMeta } from "@/lib/projects";
 
-import { routing } from "@/i18n/routing";
-
 interface HomeContentProps {
   recentPosts: PostMeta[];
   recentProjects: ProjectMeta[];
@@ -41,7 +38,6 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
   const { isDarkMode, handleToggleTheme } = useTheme();
   const handleSwitchLanguage = useSwitchLanguage(locale);
 
-  const rssHref = locale === "pt" ? "/rss.xml" : `/${locale}/rss.xml`;
   const socialLinks = t.raw("socialLinks") as ISocialLink[];
 
   const socialLinksWithIcons: ISocialLink[] = socialLinks.map((link) => {
@@ -80,13 +76,6 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             <div className="flex items-center justify-between sm:justify-start sm:gap-3">
               <h1 className="text-lg font-semibold">{t("title")}</h1>
               <div className="flex gap-3 select-none items-center sm:hidden">
-                <a
-                  href={rssHref}
-                  aria-label={t("rssButtonTitle")}
-                  className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-                >
-                  <RssIcon className="h-5 w-5" />
-                </a>
                 <button
                   onClick={handleToggleTheme}
                   aria-label={t("toggleThemeTitle")}
@@ -107,7 +96,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             {/* Line 2 (mobile) */}
             <div className="flex items-center gap-1.5 sm:hidden">
               <div className="flex items-center gap-1.5">
-                <FileTextIcon className="h-3.5 w-3.5" />
+                <FileTextIcon className="h-4 w-4" />
                 <a
                   href={t("curriculumPdf")}
                   download
@@ -123,7 +112,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             {/* Desktop: all in one line */}
             <div className="hidden sm:flex gap-3 select-none items-center">
               <div className="flex items-center gap-1.5">
-                <FileTextIcon className="h-3.5 w-3.5" />
+                <FileTextIcon className="h-4 w-4" />
                 <a
                   href={t("curriculumPdf")}
                   download
@@ -135,13 +124,6 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
               <span className="text-neutral-500">|</span>
               <span className="text-xs text-neutral-500">v{version}</span>
               <span className="text-neutral-500">|</span>
-              <a
-                href={rssHref}
-                aria-label={t("rssButtonTitle")}
-                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-              >
-                <RssIcon className="h-5 w-5" />
-              </a>
               <button
                 onClick={handleToggleTheme}
                 aria-label={t("toggleThemeTitle")}
@@ -167,7 +149,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
         {/* Projects */}
         <div className="animate-7">
           <div className="group flex items-center gap-2 pb-6">
-            <CodeIcon className="h-3.5 w-3.5" />
+            <CodeIcon className="h-4 w-4" />
             <Link
               href="/projects"
               className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
@@ -175,7 +157,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
               {t("projectsTitle")}
             </Link>
             <Link href="/projects">
-              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
             </Link>
           </div>
 
@@ -194,7 +176,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
         {/* Blog */}
         <div className="animate-10">
           <div className="group flex items-center gap-2 pb-6">
-            <ArticleIcon className="h-3.5 w-3.5" />
+            <NotePencilIcon className="h-4 w-4" />
             <Link
               href="/blog"
               className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
@@ -202,7 +184,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
               {t("blogTitle")}
             </Link>
             <Link href="/blog">
-              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
             </Link>
           </div>
 
@@ -225,7 +207,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
         {/* Social Links */}
         <div className="animate-15">
           <div className="group flex items-center gap-2 pb-6">
-            <UserIcon className="h-3.5 w-3.5" />
+            <UserIcon className="h-4 w-4" />
             <a
               href="https://links.otaviorossoni.com"
               target="_blank"
@@ -239,7 +221,7 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
             </a>
           </div>
 

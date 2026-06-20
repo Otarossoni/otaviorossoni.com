@@ -2,7 +2,7 @@
 
 import { CSSProperties } from "react";
 import Link from "next/link";
-import { HouseIcon, SunIcon, MoonIcon, TranslateIcon } from "@phosphor-icons/react/dist/ssr";
+import { HouseIcon, SunIcon, MoonIcon, TranslateIcon, RssIcon } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/lib/useTheme";
 import { useSwitchLanguage } from "@/lib/useLocale";
@@ -16,12 +16,14 @@ interface BlogLayoutProps {
   children: React.ReactNode;
   breadcrumbs?: Breadcrumb[];
   locale: string;
+  showRss?: boolean;
 }
 
-const BlogLayout = ({ children, breadcrumbs = [], locale }: BlogLayoutProps) => {
+const BlogLayout = ({ children, breadcrumbs = [], locale, showRss = false }: BlogLayoutProps) => {
   const t = useTranslations();
   const { isDarkMode, handleToggleTheme } = useTheme();
   const handleSwitchLanguage = useSwitchLanguage(locale);
+  const rssHref = locale === "pt" ? "/rss.xml" : `/${locale}/rss.xml`;
 
   const titleToggleStyle: CSSProperties = {
     color: isDarkMode ? "#ededed" : "#171717",
@@ -73,6 +75,15 @@ const BlogLayout = ({ children, breadcrumbs = [], locale }: BlogLayoutProps) => 
             </nav>
 
             <div className="flex gap-3 select-none">
+              {showRss && (
+                <a
+                  href={rssHref}
+                  aria-label={t("rssButtonTitle")}
+                  className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
+                >
+                  <RssIcon className="h-5 w-5" />
+                </a>
+              )}
               <button
                 onClick={handleToggleTheme}
                 aria-label={t("toggleThemeTitle")}
