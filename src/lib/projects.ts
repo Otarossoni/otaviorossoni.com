@@ -18,7 +18,7 @@ interface GitHubFile {
 export interface ProjectData {
   title: string;
   description: string;
-  href: string;
+  github: string;
   date: string;
   duration: string;
   tags: string[];
@@ -29,7 +29,7 @@ export interface ProjectMeta {
   slug: string;
   title: string;
   description: string;
-  href: string;
+  github: string;
   date: string;
   duration: string;
   tags: string[];
@@ -94,7 +94,7 @@ export const getAllProjects = unstable_cache(
           slug,
           title: data.title || slug,
           description: data.description || "",
-          href: data.href || "",
+          github: data.github || "",
           date: data.date || "",
           duration: data.duration || "",
           tags: parseTags(data.tags),

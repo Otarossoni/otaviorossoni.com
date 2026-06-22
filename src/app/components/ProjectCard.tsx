@@ -1,7 +1,7 @@
 import { ArrowRightIcon, StarIcon } from "@phosphor-icons/react/dist/ssr";
 
 export interface IProject {
-  href: string;
+  github: string;
   title: string;
   description: string;
   duration?: string;
@@ -29,7 +29,7 @@ const TAG_DOT_COLORS: Record<string, string> = {
 
 const ProjectCard = ({ project, showDuration = true, showTags = false }: { project: IProject; showDuration?: boolean; showTags?: boolean }) => (
   <a
-    href={project.href}
+    href={project.github}
     target="_blank"
     rel="noopener noreferrer"
     className="project-card group relative block rounded-lg border p-4 cursor-pointer"
