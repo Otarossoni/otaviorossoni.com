@@ -22,6 +22,7 @@ export interface ProjectData {
   date: string;
   duration: string;
   tags: string[];
+  highlight: boolean;
 }
 
 export interface ProjectMeta {
@@ -32,6 +33,7 @@ export interface ProjectMeta {
   date: string;
   duration: string;
   tags: string[];
+  highlight: boolean;
 }
 
 function cleanSlug(fileName: string): string {
@@ -96,6 +98,7 @@ export const getAllProjects = unstable_cache(
           date: data.date || "",
           duration: data.duration || "",
           tags: parseTags(data.tags),
+          highlight: data.highlight === true,
         };
       }),
     );

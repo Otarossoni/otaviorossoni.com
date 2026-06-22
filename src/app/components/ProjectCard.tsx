@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, StarIcon } from "@phosphor-icons/react/dist/ssr";
 
 export interface IProject {
   href: string;
@@ -6,6 +6,7 @@ export interface IProject {
   description: string;
   duration?: string;
   tags?: string[];
+  highlight?: boolean;
 }
 
 const TAG_DOT_COLORS: Record<string, string> = {
@@ -31,11 +32,11 @@ const ProjectCard = ({ project, showDuration = true, showTags = false }: { proje
     href={project.href}
     target="_blank"
     rel="noopener noreferrer"
-    className="project-card group block rounded-lg border p-4 cursor-pointer"
+    className="project-card group relative block rounded-lg border p-4 cursor-pointer"
   >
     <div className="flex flex-col gap-2">
       {(showTags || showDuration) && (
-        <div className="flex items-center justify-between gap-2 min-h-[1.25rem] mb-3">
+        <div className="flex items-center justify-between gap-2 min-h-5 mb-3">
           <div className="flex flex-wrap gap-1.5">
             {showTags && project.tags?.map((tag) => (
               <span
@@ -64,6 +65,9 @@ const ProjectCard = ({ project, showDuration = true, showTags = false }: { proje
       </div>
       <p className="text-sm text-neutral-500">{project.description}</p>
     </div>
+    {project.highlight && (
+      <StarIcon weight="fill" className="absolute bottom-3 right-3 h-3.5 w-3.5 text-[#8A2BE2]" />
+    )}
   </a>
 );
 
