@@ -22,9 +22,14 @@ import { useSwitchLanguage } from "@/lib/useLocale";
 import { version } from "../../../package.json";
 
 import ProjectCard from "./ProjectCard";
-import SocialLink, { ISocialLink } from "./SocialLink";
 import { PostMeta } from "@/lib/mdx";
 import { ProjectMeta } from "@/lib/projects";
+
+interface SocialLink {
+  href: string;
+  text: string;
+  icon?: typeof AtIcon;
+}
 
 interface HomeContentProps {
   recentPosts: PostMeta[];
@@ -37,9 +42,9 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
   const { isDarkMode, handleToggleTheme } = useTheme();
   const handleSwitchLanguage = useSwitchLanguage(locale);
 
-  const socialLinks = t.raw("socialLinks") as ISocialLink[];
+  const socialLinks = t.raw("socialLinks") as SocialLink[];
 
-  const socialLinksWithIcons: ISocialLink[] = socialLinks.map((link) => {
+  const socialLinksWithIcons: SocialLink[] = socialLinks.map((link) => {
     switch (link.text) {
       case "Email":
         return { ...link, icon: AtIcon };
@@ -228,9 +233,20 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
             </a>
           </div>
 
-          <div className="flex flex-wrap gap-x-8 gap-y-4">
-            {socialLinksWithIcons.map((link: ISocialLink) => (
-              <SocialLink key={link.text} link={link} style={titleToggleStyle} />
+          <div className="flex flex-wrap gap-3">
+            {socialLinksWithIcons.map((link) => (
+              <a
+                key={link.text}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card group flex items-center gap-2 rounded-lg border px-3 py-2 cursor-pointer"
+              >
+                {link.icon && <link.icon className="h-4 w-4 text-neutral-500 transition-colors duration-200 group-hover:text-[#8A2BE2]" />}
+                <span className="text-xs text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
+                  {link.text}
+                </span>
+              </a>
             ))}
           </div>
         </div>
