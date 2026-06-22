@@ -33,7 +33,7 @@ const ProjectCard = ({ project, showDuration = true, showTags = false }: { proje
     rel="noopener noreferrer"
     className="project-card group block rounded-lg border p-4 cursor-pointer"
   >
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-5">
       {(showTags || showDuration) && (
         <div className="flex items-center justify-between gap-2 min-h-[1.25rem]">
           <div className="flex flex-wrap gap-1.5">
