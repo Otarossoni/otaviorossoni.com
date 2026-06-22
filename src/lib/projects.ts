@@ -21,6 +21,7 @@ export interface ProjectData {
   href: string;
   date: string;
   duration: string;
+  tags: string[];
 }
 
 export interface ProjectMeta {
@@ -30,10 +31,20 @@ export interface ProjectMeta {
   href: string;
   date: string;
   duration: string;
+  tags: string[];
 }
 
 function cleanSlug(fileName: string): string {
   return fileName.replace(/\.mdx$/, "");
+}
+
+function parseTags(raw: unknown): string[] {
+  if (Array.isArray(raw)) return raw.map(String);
+  if (typeof raw !== "string") return [];
+  return raw
+    .split(/[\s,]+/)
+    .map((t) => t.replace(/^#+/, "").trim().toLowerCase())
+    .filter(Boolean);
 }
 
 async function fetchGitHubDir(locale: string): Promise<GitHubFile[]> {
@@ -84,6 +95,7 @@ export const getAllProjects = unstable_cache(
           href: data.href || "",
           date: data.date || "",
           duration: data.duration || "",
+          tags: parseTags(data.tags),
         };
       }),
     );

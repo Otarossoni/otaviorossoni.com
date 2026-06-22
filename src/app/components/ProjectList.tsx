@@ -35,7 +35,7 @@ export default function ProjectList({ initialProjects, hasMore, locale }: Projec
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-4">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} showTags={true} />
         ))}
       </div>
 
