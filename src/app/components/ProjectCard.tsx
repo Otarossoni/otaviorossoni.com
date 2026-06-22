@@ -1,6 +1,8 @@
 import { ArrowRightIcon, StarIcon } from "@phosphor-icons/react/dist/ssr";
+import { Link } from "@/i18n/navigation";
 
 export interface IProject {
+  slug: string;
   github: string;
   title: string;
   description: string;
@@ -28,10 +30,8 @@ const TAG_DOT_COLORS: Record<string, string> = {
 };
 
 const ProjectCard = ({ project, showDuration = true, showTags = false }: { project: IProject; showDuration?: boolean; showTags?: boolean }) => (
-  <a
-    href={project.github}
-    target="_blank"
-    rel="noopener noreferrer"
+  <Link
+    href={`/projects/${project.slug}`}
     className="project-card group relative block rounded-lg border p-4 cursor-pointer"
   >
     <div className="flex flex-col gap-2">
@@ -68,7 +68,7 @@ const ProjectCard = ({ project, showDuration = true, showTags = false }: { proje
     {project.highlight && (
       <StarIcon weight="fill" className="absolute bottom-3 right-3 h-3.5 w-3.5 text-[#8A2BE2]" />
     )}
-  </a>
+  </Link>
 );
 
 export default ProjectCard;

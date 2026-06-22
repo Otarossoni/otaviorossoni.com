@@ -18,6 +18,7 @@ interface GitHubFile {
 export interface ProjectData {
   title: string;
   description: string;
+  href: string;
   github: string;
   date: string;
   duration: string;
@@ -29,6 +30,7 @@ export interface ProjectMeta {
   slug: string;
   title: string;
   description: string;
+  href: string;
   github: string;
   date: string;
   duration: string;
@@ -94,6 +96,7 @@ export const getAllProjects = unstable_cache(
           slug,
           title: data.title || slug,
           description: data.description || "",
+          href: data.href || "",
           github: data.github || "",
           date: data.date || "",
           duration: data.duration || "",
@@ -117,4 +120,39 @@ export async function getRecentProjects(
 ): Promise<ProjectMeta[]> {
   const projects = await getAllProjects(locale);
   return projects.slice(0, limit);
+}
+
+export async function getProjectBySlug(
+  slug: string,
+  locale: string,
+): Promise<{ data: ProjectData; content: string }> {
+  const files = await fetchGitHubDir(locale);
+  const file = files.find((f) => cleanSlug(f.name) === slug);
+  if (!file) throw new Error(`Project not found: ${slug}`);
+
+  const fileName = file.name.replace(/\.mdx$/, "");
+  const raw = await fetchFileContent(locale, fileName);
+  if (!raw) throw new Error(`Failed to fetch content: ${slug}`);
+
+  const { data, content } = matter(raw);
+  return {
+    data: {
+      title: data.title || slug,
+      description: data.description || "",
+      href: data.href || "",
+      github: data.github || "",
+      date: data.date || "",
+      duration: data.duration || "",
+      tags: parseTags(data.tags),
+      highlight: data.highlight === true,
+    },
+    content,
+  };
+}
+
+export async function getAllProjectSlugs(
+  locale: string,
+): Promise<string[]> {
+  const projects = await getAllProjects(locale);
+  return projects.map((p) => p.slug);
 }
