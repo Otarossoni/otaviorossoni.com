@@ -203,12 +203,28 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
                 <Link
                   key={post.slug}
                   href={`/blog/${year}/${month}/${day}/${post.slug}`}
-                  className="underline decoration-neutral-500 transition duration-200 ease-in-out hover:decoration-[#8A2BE2]"
+                  className="flex items-center justify-between gap-2 group/post"
                 >
-                  <span className="text-sm">{post.title}</span>
+                  <span className="text-sm underline decoration-neutral-500 transition duration-200 ease-in-out group-hover/post:decoration-[#8A2BE2]">{post.title}</span>
+                  <span className="text-xs text-neutral-500 shrink-0">
+                    {new Date(post.date + "T00:00:00").toLocaleDateString(locale === "pt" ? "pt-BR" : locale === "es" ? "es-ES" : "en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
                 </Link>
               );
             })}
+            <Link
+              href="/blog"
+              className="project-card-ghost group flex items-center justify-center gap-2 rounded-lg border p-3 cursor-pointer"
+            >
+              <span className="text-xs text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
+                {t("seeMorePosts")}
+              </span>
+              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
 
