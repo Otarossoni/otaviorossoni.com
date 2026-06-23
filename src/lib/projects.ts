@@ -150,9 +150,7 @@ export async function getProjectBySlug(
   };
 }
 
-export async function getAllProjectSlugs(
-  locale: string,
-): Promise<string[]> {
+export async function getAllProjectSlugs(locale: string): Promise<string[]> {
   const projects = await getAllProjects(locale);
   return projects.map((p) => p.slug);
 }

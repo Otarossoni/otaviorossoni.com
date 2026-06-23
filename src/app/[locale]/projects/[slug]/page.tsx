@@ -11,6 +11,7 @@ import {
 } from "@/lib/projects";
 import { routing } from "@/i18n/routing";
 import BlogLayout from "@/app/components/BlogLayout";
+import MdxLink from "@/app/components/MdxLink";
 
 export async function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -124,6 +125,7 @@ export default async function ProjectPage({
         <div className="overflow-x-auto">
           <MDXRemote
             source={content}
+            components={{ a: MdxLink }}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],

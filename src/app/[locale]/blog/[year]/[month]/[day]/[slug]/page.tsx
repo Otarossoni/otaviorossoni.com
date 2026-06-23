@@ -7,6 +7,7 @@ import { getPostBySlug, getAllPosts, PostData } from "@/lib/mdx";
 import { localeDateString } from "@/lib/locale";
 import { routing } from "@/i18n/routing";
 import BlogLayout from "@/app/components/BlogLayout";
+import MdxLink from "@/app/components/MdxLink";
 
 export async function generateStaticParams() {
   const params: {
@@ -75,6 +76,7 @@ export default async function PostPage({
         <div className="overflow-x-auto">
           <MDXRemote
             source={content}
+            components={{ a: MdxLink }}
             options={{
               mdxOptions: {
                 remarkPlugins: [remarkGfm],
