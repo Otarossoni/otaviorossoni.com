@@ -38,12 +38,16 @@ export async function buildRssXml(
     .map((post) => {
       const [year, month, day] = post.date.split("-");
       const postUrl = `${baseUrl}${localePath(locale, `/blog/${year}/${month}/${day}/${post.slug}`)}`;
+      const categories = post.tags
+        .map((tag) => `      <category>${escapeXml(tag)}</category>`)
+        .join("\n");
       return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${escapeXml(postUrl)}</link>
       <guid>${escapeXml(postUrl)}</guid>
       <description>${escapeXml(post.description)}</description>
       <pubDate>${formatPubDate(post.date)}</pubDate>
+${categories}
     </item>`;
     })
     .join("\n");

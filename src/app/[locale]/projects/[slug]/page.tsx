@@ -12,6 +12,7 @@ import {
 import { routing } from "@/i18n/routing";
 import BlogLayout from "@/app/components/BlogLayout";
 import MdxLink from "@/app/components/MdxLink";
+import { TAG_DOT_COLORS } from "@/lib/tagColors";
 
 export async function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -25,24 +26,6 @@ export async function generateStaticParams() {
 
   return params;
 }
-
-const TAG_DOT_COLORS: Record<string, string> = {
-  react: "#7ec8d4",
-  typescript: "#6b8db5",
-  go: "#6bb8c4",
-  nextjs: "#8a8a92",
-  nodejs: "#6aad6a",
-  mongodb: "#6fad6f",
-  express: "#7fa07f",
-  fastify: "#8a8a92",
-  redis: "#c47a72",
-  desktop: "#9a7ec4",
-  cli: "#c4a86b",
-  dsa: "#c4926b",
-  algorithms: "#c47aaa",
-  cleancode: "#9abf6b",
-  educational: "#8484b8",
-};
 
 export default async function ProjectPage({
   params,

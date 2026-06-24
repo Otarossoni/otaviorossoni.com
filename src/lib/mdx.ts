@@ -19,6 +19,7 @@ export interface PostData {
   title: string;
   description: string;
   date: string;
+  tags: string[];
 }
 
 export interface PostMeta {
@@ -26,6 +27,16 @@ export interface PostMeta {
   title: string;
   description: string;
   date: string;
+  tags: string[];
+}
+
+function parseTags(raw: unknown): string[] {
+  if (Array.isArray(raw)) return raw.map(String);
+  if (typeof raw !== "string") return [];
+  return raw
+    .split(/[\s,]+/)
+    .map((t) => t.replace(/^#+/, "").trim().toLowerCase())
+    .filter(Boolean);
 }
 
 function cleanSlug(fileName: string): string {
@@ -81,7 +92,7 @@ export const getPostBySlug = unstable_cache(
     const { data, content } = matter(fileContent);
 
     return {
-      data: data as PostData,
+      data: { ...data, tags: parseTags(data.tags) } as PostData,
       content,
     };
   },
@@ -117,6 +128,7 @@ export const getAllPosts = unstable_cache(
           title: data.title || slug,
           description: data.description || "",
           date: data.date || "",
+          tags: parseTags(data.tags),
         };
       }),
     );

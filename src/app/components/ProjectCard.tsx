@@ -1,5 +1,6 @@
 import { ArrowRightIcon, StarIcon } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@/i18n/navigation";
+import { TAG_DOT_COLORS } from "@/lib/tagColors";
 
 export interface IProject {
   slug: string;
@@ -10,24 +11,6 @@ export interface IProject {
   tags?: string[];
   highlight?: boolean;
 }
-
-const TAG_DOT_COLORS: Record<string, string> = {
-  react: "#7ec8d4",
-  typescript: "#6b8db5",
-  go: "#6bb8c4",
-  nextjs: "#8a8a92",
-  nodejs: "#6aad6a",
-  mongodb: "#6fad6f",
-  express: "#7fa07f",
-  fastify: "#8a8a92",
-  redis: "#c47a72",
-  desktop: "#9a7ec4",
-  cli: "#c4a86b",
-  dsa: "#c4926b",
-  algorithms: "#c47aaa",
-  cleancode: "#9abf6b",
-  educational: "#8484b8",
-};
 
 const ProjectCard = ({ project, showDuration = true, showTags = false }: { project: IProject; showDuration?: boolean; showTags?: boolean }) => (
   <Link

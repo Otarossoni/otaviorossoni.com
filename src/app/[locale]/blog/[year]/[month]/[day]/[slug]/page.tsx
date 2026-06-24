@@ -8,6 +8,7 @@ import { localeDateString } from "@/lib/locale";
 import { routing } from "@/i18n/routing";
 import BlogLayout from "@/app/components/BlogLayout";
 import MdxLink from "@/app/components/MdxLink";
+import { TAG_DOT_COLORS } from "@/lib/tagColors";
 
 export async function generateStaticParams() {
   const params: {
@@ -64,14 +65,35 @@ export default async function PostPage({
         { label: data.title },
       ]}
     >
-      <h1 className="text-xl sm:text-lg font-semibold mb-4">{data.title}</h1>
-      <p className="text-xs text-neutral-500 mb-8">
-        {new Date(data.date + "T00:00:00").toLocaleDateString(dateLocale, {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
-      </p>
+      <h1 className="text-xl sm:text-lg font-semibold mb-2">{data.title}</h1>
+
+      <div className="flex items-center justify-between gap-2 mb-8">
+        <div className="flex flex-wrap gap-1.5">
+          {data.tags.map((tag) => (
+            <span
+              key={tag}
+              className="project-tag text-[10px] rounded-full px-2 py-0.5 text-neutral-500 border"
+              style={{ borderColor: TAG_DOT_COLORS[tag] || "#737373" }}
+            >
+              <span
+                className="project-tag-dot inline-block w-2 h-2 rounded-full mr-1 align-middle"
+                style={{ backgroundColor: TAG_DOT_COLORS[tag] || "#737373" }}
+              />
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="flex items-center gap-3 shrink-0">
+          <span className="text-xs text-neutral-500">
+            {new Date(data.date + "T00:00:00").toLocaleDateString(dateLocale, {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </span>
+        </div>
+      </div>
+
       <article className="prose prose-invert max-w-none">
         <div className="overflow-x-auto">
           <MDXRemote
