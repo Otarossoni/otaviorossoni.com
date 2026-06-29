@@ -6,7 +6,6 @@
   </p>
 
   <p>
-    <img src="https://img.shields.io/badge/version-2.0.0-blue.svg?style=flat-square" alt="Version">
     <img src="https://img.shields.io/badge/Next.js-16.1.6-black.svg?style=flat-square&logo=next.js" alt="Next.js">
     <img src="https://img.shields.io/badge/React-19-blue.svg?style=flat-square&logo=react" alt="React">
     <img src="https://img.shields.io/badge/TypeScript-5.x-blue.svg?style=flat-square&logo=typescript" alt="TypeScript">
