@@ -47,27 +47,27 @@ const BlogLayout = ({ children, breadcrumbs = [], locale, showRss = false }: Blo
         {/* Header */}
         <div className="animate-5">
           <div className="flex items-center justify-between pt-16 sm:pt-24 pb-4">
-            <nav className="flex items-center gap-1.5 text-sm font-semibold" style={titleToggleStyle}>
+            <nav className="flex items-center gap-1.5 text-sm font-semibold min-w-0 overflow-hidden" style={titleToggleStyle}>
               <Link
                 href={`/${locale}`}
-                className="transition duration-200 ease-in-out hover:opacity-70"
+                className="shrink-0 transition duration-200 ease-in-out hover:opacity-70"
               >
                 <HouseIcon className="h-4 w-4" />
               </Link>
               {allBreadcrumbs.map((crumb, index) => {
                 const isLast = index === allBreadcrumbs.length - 1;
                 return (
-                  <span key={index} className="flex items-center gap-1.5">
+                  <span key={index} className={`flex items-center gap-1.5 ${isLast ? "min-w-0" : "shrink-0"}`}>
                     <span className="text-neutral-500">/</span>
                     {crumb.href && !isLast ? (
                       <Link
                         href={crumb.href}
-                        className="transition duration-200 ease-in-out hover:opacity-70"
+                        className="shrink-0 transition duration-200 ease-in-out hover:opacity-70"
                       >
                         {crumb.label}
                       </Link>
                     ) : (
-                      <span>{crumb.label}</span>
+                      <span className="truncate">{crumb.label}</span>
                     )}
                   </span>
                 );

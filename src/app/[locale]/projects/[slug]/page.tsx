@@ -56,7 +56,7 @@ export default async function ProjectPage({
     >
       <h1 className="text-xl sm:text-lg font-semibold mb-2">{data.title}</h1>
 
-      <div className="flex items-center justify-between gap-2 mb-8">
+      <div className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between gap-2 mb-8">
         <div className="flex flex-wrap gap-1.5">
           {data.tags.map((tag) => (
             <span
