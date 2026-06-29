@@ -63,10 +63,10 @@ const BlogLayout = ({ children, breadcrumbs = [], locale, showRss = false }: Blo
                         href={allBreadcrumbs[index - 1].href!}
                         className="text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
                       >
-                        /
+                        ../
                       </Link>
                     ) : (
-                      <span className="text-neutral-500">/</span>
+                      <span className="text-neutral-500">../</span>
                     )}
                     {crumb.href && !isLast ? (
                       <Link
