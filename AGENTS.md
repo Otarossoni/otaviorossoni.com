@@ -10,6 +10,7 @@
 - `npm run typecheck` — TypeScript check without emitting
 - **No test suite exists.** `typecheck` is the only quality gate.
 - Linting is broken — `next lint` parses "lint" as a directory (Next.js 16), and ESLint 9 crashes with `eslint-config-next` (circular ref). `typecheck` is the only quality gate.
+- **Git policy:** Never commit or push without an explicit request from the user.
 
 ## Architecture
 - **App Router** in `src/app/[locale]/`. All pages require `locale` param.

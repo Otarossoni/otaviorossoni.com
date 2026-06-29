@@ -46,7 +46,7 @@ const ProjectCard = ({ project, showDuration = true, showTags = false }: { proje
         <p className="project-card-title underline decoration-neutral-500 transition duration-200 ease-in-out group-hover:decoration-[#8A2BE2] truncate">{project.title}</p>
         <ArrowRightIcon className="h-4 w-4 shrink-0 text-neutral-500 opacity-0 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
       </div>
-      <p className="text-sm text-neutral-500">{project.description}</p>
+      <p className="text-sm text-neutral-500 pr-6">{project.description}</p>
     </div>
     {project.highlight && (
       <StarIcon weight="fill" className="absolute bottom-3 right-3 h-3.5 w-3.5 text-[#8A2BE2]" />
