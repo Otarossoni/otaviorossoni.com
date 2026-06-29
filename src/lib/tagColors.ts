@@ -16,4 +16,5 @@ export const TAG_DOT_COLORS: Record<string, string> = {
   educational: "#8484b8",
   tech: "#6b8db5",
   misc: "#c4a86b",
+  tailwindcss: "#62b6cb",
 };
