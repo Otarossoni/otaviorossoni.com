@@ -57,7 +57,7 @@ const BlogLayout = ({ children, breadcrumbs = [], locale, showRss = false }: Blo
               {allBreadcrumbs.map((crumb, index) => {
                 const isLast = index === allBreadcrumbs.length - 1;
                 return (
-                  <span key={index} className={`flex items-center gap-1.5 ${isLast ? "min-w-0" : index === 0 ? "hidden sm:flex shrink-0" : "shrink-0"}`}>
+                  <span key={index} className={`flex items-center gap-1.5 ${isLast ? "min-w-0" : index === 0 ? "hidden sm:flex shrink-0" : "hidden min-[480px]:flex shrink-0"}`}>
                     <span className="text-neutral-500">/</span>
                     {crumb.href && !isLast ? (
                       <Link
