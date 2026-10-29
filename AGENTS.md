@@ -17,13 +17,15 @@
 - **App Router** in `src/app/[locale]/`. All pages require `locale` param.
 - **Path alias:** `@/` resolves to `src/` (configured in `tsconfig.json`).
 - **Components** live in `src/app/components/` (not `src/components/`).
-- **Fonts:** Geist and Geist_Mono loaded via `next/font/google` in locale layout, exposed as CSS variables (`--font-geist-sans`, `--font-geist-mono`).
+- **Fonts:** Inter (variable, `opsz` axis) and IBM Plex Mono 400/500 loaded via `next/font/google` (self-hosted) in the locale layout, exposed as `--font-inter` / `--font-plex-mono` and mapped to Tailwind `font-sans` / `font-mono`. Mono is only for version, dates, periods and code.
 
 ## Tailwind v4
 - **No `tailwind.config.js`** — Tailwind v4 uses CSS-first configuration.
 - Config lives in `src/app/globals.css` via `@import "tailwindcss"` and `@theme inline { ... }`.
+- **Design tokens:** all colors are CSS variables defined per theme on `:root,[data-theme="dark"]` and `[data-theme="light"]` (`--bg`, `--surface`, `--surface-2`, `--fill`, `--label`, `--label-2`, `--label-3`, `--prose`, `--accent`, `--accent-hover`, `--tint`, `--shadow`, `--tag-l`, code colors…) and exposed through `@theme inline` as utilities (`bg-surface`, `text-label-2`, `text-accent`, `shadow-card`, `rounded-card`, `size-hit`, `max-w-page`, `text-title`, `text-callout`…). Don't hardcode hex colors in components.
+- Home sizing uses `--home-*` variables: stacked values below 1024px, `clamp(…svh…)` values above so the home fits 1920 × 940 without scrolling.
 - PostCSS plugin is `@tailwindcss/postcss` (in `postcss.config.mjs`).
-- **Typography plugin:** `@tailwindcss/typography` installed for blog prose styling. Prose overrides for dark mode are in `globals.css`.
+- **Typography plugin:** `@tailwindcss/typography` installed; the visible MDX styles (`.prose`, `.prose-project`, `.mdx-body`) and the highlight.js colors are written in `globals.css` on top of the tokens, for both themes. On project pages the first paragraph is styled as a lead.
 
 ## Content Source (IMPORTANT — content is NOT local)
 - Blog posts and project write-ups are **not** stored in this repo. They live in a separate content repo, `Otarossoni/content-otaviorossoni.com`, fetched at request/build time via the GitHub REST API + raw.githubusercontent.com.
@@ -51,8 +53,8 @@
 - `ProjectCard` (`src/app/components/ProjectCard.tsx`) renders a card; `showTags`/`showDuration` props control what's shown (home page shows duration-less cards, `/projects` list shows tags).
 
 ## Tags
-- `src/lib/tagColors.ts` exports `TAG_DOT_COLORS: Record<string, string>` mapping known tags (react, typescript, go, nextjs, tailwindcss, etc.) to a hex color. Unknown tags fall back to `#737373`.
-- Used to color both the pill border and a small dot on tag chips in blog posts and project cards.
+- `src/lib/tagColors.ts` exports `TAG_DOT_COLORS: Record<string, [hue, chroma]>` for known tags (react, typescript, go, nextjs, tailwindcss, etc.) and `tagDotColor(tag)`, which returns `oklch(var(--tag-l) chroma hue)` so lightness follows the theme. Unknown tags fall back to neutral gray.
+- Rendered by `Tag` / `TagList` (`src/app/components/Tag.tsx`) on project cards, project pages and posts.
 - New tags don't need code changes to render (fallback color applies) but won't get a bespoke color until added here.
 
 ## Pagination ("Load more")
@@ -66,11 +68,13 @@
 - RSS link only shown in the UI on the blog list page (`BlogLayout`'s `showRss` prop).
 
 ## Layout, Theme, and Locale Switching
-- `BlogLayout` client component (`src/app/components/BlogLayout.tsx`) wraps blog/project pages. Accepts `breadcrumbs: { label; href? }[]`, `locale`, and `showRss`. The home page uses its own `HomeContent` component instead (not `BlogLayout`).
-- `src/lib/useTheme.ts` — `useTheme()` hook. Defaults to dark; reads `localStorage["theme"]`, falls back to `prefers-color-scheme: light` media query. Persists on toggle.
+- `BlogLayout` client component (`src/app/components/BlogLayout.tsx`) wraps blog/project pages in a single centred 680px column. Accepts `title`, optional `meta` (rendered under the title), `breadcrumbs: { label; href? }[]`, `locale`, and `showRss`; it renders the `h1`, so pages pass the title instead of rendering it. The home page uses its own `HomeContent` component instead (not `BlogLayout`), with a 5fr/7fr two-column layout (left: controls, name, `ExperienceSection`, blog, social; right: projects).
+- Shared UI pieces: `HeaderControls` (RSS/theme/language buttons), `IconButton` (`ICON_BUTTON_CLASS` + `IconCircle`: 36px circle in a 44px hit area), `Pill` (`PILL_LINK_CLASS`), `MoreLink` (`MORE_LINK_CLASS`, `MoreLinkContent`, section label classes).
+- **Experience:** `ExperienceSection` reads `experience` (role, company, `start`/`end` as `YYYY-MM`, `end` empty for the current job, Phosphor icon name) plus `experienceTitle`/`experiencePresent` from `messages/*.json` and formats periods with `Intl.DateTimeFormat`.
+- **Theme:** `data-theme` lives on `<html>`. An inline `next/script` (`beforeInteractive`) in the locale layout resolves it before the first paint (`localStorage["theme"]`, falling back to `prefers-color-scheme: light`, default dark). `src/lib/useTheme.ts` — `useTheme()` re-applies the same resolution on mount (needed on client-rendered error pages) and toggles/persists it. The theme toggle renders both icons and CSS shows the right one.
 - `src/lib/useLocale.ts` — `useSwitchLanguage(currentLocale)` **cycles** through `routing.locales` (pt → en → es → pt), it is not a simple two-way toggle.
 - `src/lib/locale.ts` — `localeFlag(locale)` (emoji) and `localeDateString(locale)` (Intl locale string for `toLocaleDateString`).
-- `not-found.tsx` (`src/app/[locale]/not-found.tsx`) is a standalone themed 404 page (uses `useTheme` directly, not `BlogLayout`).
+- `not-found.tsx` (`src/app/[locale]/not-found.tsx`) is a standalone 404 page centred in `100svh` (calls `useTheme()` so the theme survives the client-rendered error shell; no `BlogLayout`).
 
 ## Internationalization (next-intl)
 - **Locale routing:** `/pt`, `/en`, `/es` with `pt` as default. Prefix hidden for default locale (`as-needed`).
@@ -82,15 +86,15 @@
 - **Proxy:** `src/proxy.ts` replaces deprecated `middleware.ts`. Configured with next-intl.
 
 ## Styling Conventions
-- Tailwind utility classes throughout. Inline `style` prop used for theme-dependent colors (dark/light toggle).
+- Tailwind utility classes throughout, using the token utilities above. Theme switching is pure CSS via `[data-theme]` on `<html>`; no inline theme styles. Hover styles rely on Tailwind v4 wrapping `hover:` in `@media (hover: hover)`; `prefers-reduced-motion` disables transitions, animations and press scaling.
 - Custom animations in `globals.css`: `.animate-5`, `.animate-7`, `.animate-10`, `.animate-15` (staggered fade-in-up).
 - Scrollbar is hidden globally via CSS in `globals.css`.
-- **Dark mode default:** `html, body` set to `background-color: #000000; color: #ededed` in CSS to prevent flash on page load.
+- **Dark mode default:** the dark tokens are the `:root` defaults, so pages render dark until the theme script says otherwise.
 
 ## Import Quirks
 - Phosphor Icons: import icon components from `@phosphor-icons/react/dist/ssr` (SSR-safe). The `Icon` type can be imported from the root package `@phosphor-icons/react`.
 - CSS imports (`*.css`) require `src/css.d.ts` for TypeScript to recognize them (Next.js only types `*.module.css`).
-- Theme toggle uses Phosphor `SunIcon`/`MoonIcon` (not emojis). Home link uses Phosphor `HouseIcon`. Locale switch uses `TranslateIcon`.
+- Theme toggle uses Phosphor `SunIcon`/`MoonIcon` (not emojis). Home link uses Phosphor `HouseIcon`. Locale switch uses `TranslateIcon`. Icons are sized with the `size` prop.
 
 ## Versioning
 - `package.json` version is bumped automatically on every push to `main` by `.github/workflows/bump-version.yml` (`npm version patch`, commits `chore: bump version [skip ci]`, pushes with `GITHUB_TOKEN`). Don't hand-edit the version.

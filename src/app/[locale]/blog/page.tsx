@@ -25,10 +25,10 @@ export default async function BlogPage({
   return (
     <BlogLayout
       locale={locale}
+      title={t("blogTitle")}
       breadcrumbs={[{ label: t("blogTitle"), href: `/${locale}/blog` }]}
       showRss
     >
-      <h1 className="text-xl sm:text-lg font-semibold mb-8">{t("blogTitle")}</h1>
       <BlogPostList initialPosts={initialPosts} hasMore={hasMore} locale={locale} />
     </BlogLayout>
   );

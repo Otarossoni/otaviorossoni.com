@@ -1,6 +1,5 @@
 "use client";
 
-import { CSSProperties } from "react";
 import {
   CodeIcon,
   GithubLogoIcon,
@@ -11,17 +10,17 @@ import {
   NotePencilIcon,
   ArrowRightIcon,
   DownloadSimpleIcon,
-  SunIcon,
-  MoonIcon,
-  TranslateIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { useTheme } from "@/lib/useTheme";
-import { useSwitchLanguage } from "@/lib/useLocale";
+import { localeDateString } from "@/lib/locale";
 import { version } from "../../../package.json";
 
 import ProjectCard from "./ProjectCard";
+import ExperienceSection from "./ExperienceSection";
+import HeaderControls from "./HeaderControls";
+import Pill, { PILL_LINK_CLASS } from "./Pill";
+import { MORE_LINK_CLASS, MoreLinkContent, SECTION_LINK_CLASS } from "./MoreLink";
 import { PostMeta } from "@/lib/mdx";
 import { ProjectMeta } from "@/lib/projects";
 
@@ -39,8 +38,6 @@ interface HomeContentProps {
 
 export default function HomeContent({ recentPosts, recentProjects, locale }: HomeContentProps) {
   const t = useTranslations();
-  const { isDarkMode, handleToggleTheme } = useTheme();
-  const handleSwitchLanguage = useSwitchLanguage(locale);
 
   const socialLinks = t.raw("socialLinks") as SocialLink[];
 
@@ -59,213 +56,123 @@ export default function HomeContent({ recentPosts, recentProjects, locale }: Hom
     }
   });
 
-  const titleToggleStyle: CSSProperties = {
-    color: isDarkMode ? "#ededed" : "#171717",
-  };
-
   return (
-    <div
-      className="flex min-h-screen w-full flex-col items-center pb-12"
-      data-theme={isDarkMode ? "dark" : "light"}
-      style={{
-        backgroundColor: isDarkMode ? "#000000" : "#faf7f0",
-        ...titleToggleStyle,
-      }}
-    >
-      <div className="w-full px-8 sm:w-120 sm:px-0 md:w-160">
-        {/* Header */}
-        <div className="animate-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-16 sm:pt-24 sm:pb-4 gap-3 sm:gap-0">
-            {/* Line 1 */}
-            <div className="flex items-center justify-between sm:justify-start sm:gap-3">
-              <h1 className="text-lg font-semibold">{t("title")}</h1>
-              <div className="flex gap-3 select-none items-center sm:hidden">
-                <button
-                  onClick={handleToggleTheme}
-                  aria-label={t("toggleThemeTitle")}
-                  className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-                >
-                  {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
-                </button>
-                <button
-                  onClick={handleSwitchLanguage}
-                  aria-label={t("toggleLanguageTitle")}
-                  className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-                >
-                  <TranslateIcon className="h-5 w-5" />
-                </button>
+    <div className="flex min-h-svh w-full flex-col justify-center-safe">
+      <div className="mx-auto grid w-full max-w-home grid-cols-1 gap-home-sections px-4 pt-home-pad-y pb-home-pad-bottom lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-24 lg:px-16">
+        <aside className="flex flex-col gap-home-sections">
+          {/* Controls, name and phrase */}
+          <div className="animate-5 flex flex-col gap-home-stack">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 lg:gap-4">
+                <a href={t("curriculumPdf")} download className={PILL_LINK_CLASS}>
+                  <Pill variant="tint">
+                    <DownloadSimpleIcon size={16} />
+                    {t("curriculumTitle")}
+                  </Pill>
+                </a>
+                <span className="font-mono text-footnote/5 text-label-3 tabular-nums">v{version}</span>
               </div>
+              <HeaderControls locale={locale} />
             </div>
 
-            {/* Line 2 (mobile) */}
-            <div className="flex items-center gap-1.5 sm:hidden">
-              <div className="flex items-center gap-1.5">
-                <DownloadSimpleIcon className="h-4 w-4" />
-                <a
-                  href={t("curriculumPdf")}
-                  download
-                  className="text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-                >
-                  {t("curriculumTitle")}
-                </a>
-              </div>
-              <span className="text-neutral-500">|</span>
-              <span className="text-xs text-neutral-500">v{version}</span>
-            </div>
-
-            {/* Desktop: all in one line */}
-            <div className="hidden sm:flex gap-3 select-none items-center">
-              <div className="flex items-center gap-1.5">
-                <DownloadSimpleIcon className="h-4 w-4" />
-                <a
-                  href={t("curriculumPdf")}
-                  download
-                  className="text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-                >
-                  {t("curriculumTitle")}
-                </a>
-              </div>
-              <span className="text-neutral-500">|</span>
-              <span className="text-xs text-neutral-500">v{version}</span>
-              <span className="text-neutral-500">|</span>
-              <button
-                onClick={handleToggleTheme}
-                aria-label={t("toggleThemeTitle")}
-                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-              >
-                {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
-              </button>
-              <button
-                onClick={handleSwitchLanguage}
-                aria-label={t("toggleLanguageTitle")}
-                className="cursor-pointer bg-transparent border-none p-0 text-inherit transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-              >
-                <TranslateIcon className="h-5 w-5" />
-              </button>
+            <div className="flex flex-col gap-4">
+              <h1 className="m-0 text-home-name font-bold text-balance">{t("title")}</h1>
+              <p className="m-0 max-w-[30ch] text-home-lead text-balance text-label-2">{t("description")}</p>
             </div>
           </div>
 
-          <p className="mt-4 text-base text-neutral-500 sm:mt-0 pb-12">
-            {t("description")}
-          </p>
-        </div>
+          {/* Experience */}
+          <div className="animate-7">
+            <ExperienceSection locale={locale} />
+          </div>
+
+          {/* Blog */}
+          <section className="animate-10 flex flex-col gap-1">
+            <Link href="/blog" className={SECTION_LINK_CLASS}>
+              <NotePencilIcon size={15} />
+              <span>{t("blogTitle")}</span>
+              <ArrowRightIcon size={13} />
+            </Link>
+
+            <div className="flex flex-col gap-2 rounded-card bg-surface p-2 shadow-card">
+              {recentPosts.map((post) => {
+                const [year, month, day] = post.date.split("-");
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${year}/${month}/${day}/${post.slug}`}
+                    className="flex flex-col gap-1 rounded-inner p-3 transition-[background-color,transform] hover:bg-surface-2 active:scale-98"
+                  >
+                    <span className="font-mono text-footnote text-label-3 tabular-nums">
+                      {new Date(post.date + "T00:00:00").toLocaleDateString(localeDateString(locale), {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                    <span className="text-headline font-semibold text-balance">{post.title}</span>
+                  </Link>
+                );
+              })}
+            </div>
+
+            <Link href="/blog" className={`${MORE_LINK_CLASS} self-start`}>
+              <MoreLinkContent>{t("seeMorePosts")}</MoreLinkContent>
+            </Link>
+          </section>
+
+          {/* Social Links */}
+          <section className="animate-15 flex flex-col gap-1">
+            <a
+              href="https://links.otaviorossoni.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={SECTION_LINK_CLASS}
+            >
+              <UserIcon size={15} />
+              <span>{t("socialTitle")}</span>
+              <ArrowRightIcon size={13} />
+            </a>
+
+            <div className="flex flex-wrap gap-x-2">
+              {socialLinksWithIcons.map((link) => (
+                <a
+                  key={link.text}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={PILL_LINK_CLASS}
+                >
+                  <Pill>
+                    {link.icon && <link.icon size={16} />}
+                    {link.text}
+                  </Pill>
+                </a>
+              ))}
+            </div>
+          </section>
+        </aside>
 
         {/* Projects */}
-        <div className="animate-7">
-          <div className="group flex items-center gap-2 pb-6">
-            <CodeIcon className="h-4 w-4" />
-            <Link
-              href="/projects"
-              className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-            >
-              {t("projectsTitle")}
-            </Link>
-            <Link href="/projects">
-              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+        <section className="animate-7 flex flex-col gap-1">
+          <div className="flex h-hit items-center">
+            <Link href="/projects" className={SECTION_LINK_CLASS}>
+              <CodeIcon size={15} />
+              <span>{t("projectsTitle")}</span>
+              <ArrowRightIcon size={13} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pb-12">
+          <div className="flex flex-col gap-home-card-gap">
             {recentProjects.map((project) => (
               <ProjectCard key={project.slug} project={project} showDuration={false} />
             ))}
-            <Link
-              href="/projects"
-              className="project-card-ghost group flex items-center justify-center gap-2 rounded-lg border p-4 cursor-pointer"
-            >
-              <span className="text-sm text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
-                {t("seeOlderProjects")}
-              </span>
-              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Blog */}
-        <div className="animate-10">
-          <div className="group flex items-center gap-2 pb-6">
-            <NotePencilIcon className="h-4 w-4" />
-            <Link
-              href="/blog"
-              className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-            >
-              {t("blogTitle")}
-            </Link>
-            <Link href="/blog">
-              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
-            </Link>
           </div>
 
-          <div className="flex flex-col gap-3 pb-12">
-            {recentPosts.map((post) => {
-              const [year, month, day] = post.date.split("-");
-              return (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${year}/${month}/${day}/${post.slug}`}
-                  className="flex items-center justify-between gap-2 group/post"
-                >
-                  <span className="text-sm underline decoration-neutral-500 transition duration-200 ease-in-out group-hover/post:decoration-[#8A2BE2]">{post.title}</span>
-                  <span className="text-xs text-neutral-500 shrink-0">
-                    {new Date(post.date + "T00:00:00").toLocaleDateString(locale === "pt" ? "pt-BR" : locale === "es" ? "es-ES" : "en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
-                </Link>
-              );
-            })}
-            <Link
-              href="/blog"
-              className="project-card-ghost group flex items-center justify-center gap-2 rounded-lg border p-3 cursor-pointer"
-            >
-              <span className="text-xs text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
-                {t("seeMorePosts")}
-              </span>
-              <ArrowRightIcon className="h-3.5 w-3.5 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Social Links */}
-        <div className="animate-15">
-          <div className="group flex items-center gap-2 pb-6">
-            <UserIcon className="h-4 w-4" />
-            <a
-              href="https://links.otaviorossoni.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-            >
-              {t("socialTitle")}
-            </a>
-            <a
-              href="https://links.otaviorossoni.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ArrowRightIcon className="h-4 w-4 text-neutral-500 transition-all duration-200 ease-in-out group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
-            </a>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            {socialLinksWithIcons.map((link) => (
-              <a
-                key={link.text}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-card group flex items-center gap-2 rounded-lg border px-3 py-2 cursor-pointer"
-              >
-                {link.icon && <link.icon className="h-4 w-4 text-neutral-500 transition-colors duration-200 group-hover:text-[#8A2BE2]" />}
-                <span className="text-xs text-neutral-500 transition duration-200 ease-in-out group-hover:text-[#8A2BE2]">
-                  {link.text}
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
+          <Link href="/projects" className={`${MORE_LINK_CLASS} mt-1 self-start`}>
+            <MoreLinkContent>{t("seeOlderProjects")}</MoreLinkContent>
+          </Link>
+        </section>
       </div>
     </div>
   );

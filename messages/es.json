@@ -5,7 +5,7 @@
   "socialTitle": "Social",
   "blogTitle": "Blog",
   "curriculumTitle": "Currículum",
-  "curriculumPdf": "/curriculum-otavio-monteiro-rossoni.pdf",
+  "curriculumPdf": "/Otavio_Rossoni_Ingeniero_Backend_ES.pdf",
   "homeTitle": "Inicio",
   "toggleThemeTitle": "Alternar tema claro y oscuro",
   "toggleLanguageTitle": "Cambiar idioma",
@@ -18,6 +18,38 @@
   "rssButtonTitle": "Suscribirse al RSS",
   "rssTitle": "Blog de Otávio Rossoni",
   "rssDescription": "Últimas publicaciones del blog.",
+  "experienceTitle": "Experiencia",
+  "experiencePresent": "actual",
+  "experience": [
+    {
+      "role": "Software Engineer",
+      "company": "Luizalabs",
+      "start": "2024-11",
+      "end": "",
+      "icon": "Truck"
+    },
+    {
+      "role": "Software Engineer",
+      "company": "SBsistemas",
+      "start": "2024-04",
+      "end": "2024-11",
+      "icon": "Receipt"
+    },
+    {
+      "role": "Desarrollador de Software",
+      "company": "DataIntegra",
+      "start": "2022-08",
+      "end": "2024-04",
+      "icon": "Heartbeat"
+    },
+    {
+      "role": "Soporte e Implementación",
+      "company": "Vip Informática",
+      "start": "2021-06",
+      "end": "2022-08",
+      "icon": "Headset"
+    }
+  ],
   "socialLinks": [
     {
       "href": "mailto:otarossoni@gmail.com",

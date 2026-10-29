@@ -1,6 +1,6 @@
-import { ArrowRightIcon, StarIcon } from "@phosphor-icons/react/dist/ssr";
+import { StarIcon } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@/i18n/navigation";
-import { TAG_DOT_COLORS } from "@/lib/tagColors";
+import { TagList } from "./Tag";
 
 export interface IProject {
   slug: string;
@@ -12,46 +12,39 @@ export interface IProject {
   highlight?: boolean;
 }
 
-const ProjectCard = ({ project, showDuration = true, showTags = false }: { project: IProject; showDuration?: boolean; showTags?: boolean }) => (
-  <Link
-    href={`/projects/${project.slug}`}
-    className="project-card group relative block rounded-lg border p-4 cursor-pointer"
-  >
-    <div className="flex flex-col gap-2">
-      {(showTags || showDuration) && (
-        <div className="flex items-center justify-between gap-2 min-h-5 mb-3">
-          <div className="flex flex-wrap gap-1.5">
-            {showTags && project.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="project-tag text-[10px] rounded-full px-2 py-0.5 text-neutral-500 border"
-                style={{ borderColor: TAG_DOT_COLORS[tag] || "#737373" }}
-              >
-                <span
-                  className="project-tag-dot inline-block w-2 h-2 rounded-full mr-1 align-middle"
-                  style={{ backgroundColor: TAG_DOT_COLORS[tag] || "#737373" }}
-                />
-                {tag}
-              </span>
-            ))}
-          </div>
+// One treatment for every project; a highlight only adds the star. Without the
+// tags/duration row (home), the card follows the home's height-fluid spacing.
+const ProjectCard = ({ project, showDuration = true, showTags = false }: { project: IProject; showDuration?: boolean; showTags?: boolean }) => {
+  const showMeta = showTags || showDuration;
+
+  return (
+    <Link
+      href={`/projects/${project.slug}`}
+      className={`flex flex-col rounded-card bg-surface shadow-card transition-[background-color,transform] hover:bg-surface-2 active:scale-98 ${
+        showMeta ? "gap-3 p-5" : "min-h-home-card-min gap-1 px-5 py-home-card-py"
+      }`}
+    >
+      {showMeta && (
+        <div className="flex min-h-6 items-start justify-between gap-4">
+          {showTags && project.tags?.length ? <TagList tags={project.tags} /> : <div />}
           {showDuration && project.duration && (
-            <span className="text-xs text-neutral-500 shrink-0">
+            <span className="shrink-0 pt-1 font-mono text-footnote text-label-3 tabular-nums">
               {project.duration}
             </span>
           )}
         </div>
       )}
-      <div className="flex items-center gap-2">
-        <p className="project-card-title underline decoration-neutral-500 transition duration-200 ease-in-out group-hover:decoration-[#8A2BE2] truncate">{project.title}</p>
-        <ArrowRightIcon className="h-4 w-4 shrink-0 text-neutral-500 opacity-0 transition-all duration-200 ease-in-out group-hover:opacity-100 group-hover:text-[#8A2BE2] group-hover:translate-x-1" />
+      <div className="flex flex-col gap-1">
+        <div className="flex items-start justify-between gap-4">
+          <span className="text-headline font-semibold text-balance">{project.title}</span>
+          {project.highlight && (
+            <StarIcon weight="fill" size={14} className="mt-1 shrink-0 text-accent" />
+          )}
+        </div>
+        <span className="text-description text-pretty text-label-2">{project.description}</span>
       </div>
-      <p className="text-sm text-neutral-500 pr-6">{project.description}</p>
-    </div>
-    {project.highlight && (
-      <StarIcon weight="fill" className="absolute bottom-3 right-3 h-3.5 w-3.5 text-[#8A2BE2]" />
-    )}
-  </Link>
-);
+    </Link>
+  );
+};
 
 export default ProjectCard;
