@@ -21,7 +21,7 @@ const LinkText = ({
       href={href}
       target={target}
       rel={rel}
-      className="text-neutral-200 underline decoration-neutral-500 transition duration-200 ease-in-out hover:decoration-[#8A2BE2]"
+      className="text-label underline decoration-label-3 transition-colors hover:decoration-accent"
       style={style}
     >
       {children}

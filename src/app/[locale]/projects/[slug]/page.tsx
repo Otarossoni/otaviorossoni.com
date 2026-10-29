@@ -12,7 +12,8 @@ import {
 import { routing } from "@/i18n/routing";
 import BlogLayout from "@/app/components/BlogLayout";
 import MdxLink from "@/app/components/MdxLink";
-import { TAG_DOT_COLORS } from "@/lib/tagColors";
+import Pill, { PILL_LINK_CLASS } from "@/app/components/Pill";
+import { TagList } from "@/app/components/Tag";
 
 export async function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -53,59 +54,38 @@ export default async function ProjectPage({
         { label: t("projectsTitle"), href: `/${locale}/projects` },
         { label: data.title },
       ]}
+      title={data.title}
+      meta={
+        <>
+          {data.tags.length > 0 && <TagList tags={data.tags} />}
+          {(data.github || data.href || data.duration) && (
+            <div className="flex flex-wrap items-center gap-3">
+              {data.github && (
+                <a href={data.github} target="_blank" rel="noopener noreferrer" className={PILL_LINK_CLASS}>
+                  <Pill>
+                    <GithubLogoIcon size={16} />
+                    GitHub
+                  </Pill>
+                </a>
+              )}
+              {data.href && (
+                <a href={data.href} target="_blank" rel="noopener noreferrer" className={PILL_LINK_CLASS}>
+                  <Pill>
+                    <GlobeIcon size={16} />
+                    Site
+                  </Pill>
+                </a>
+              )}
+              {data.duration && (
+                <span className="font-mono text-footnote text-label-3 tabular-nums">{data.duration}</span>
+              )}
+            </div>
+          )}
+        </>
+      }
     >
-      <h1 className="text-xl sm:text-lg font-semibold mb-2">{data.title}</h1>
-
-      <div className="flex flex-col-reverse sm:flex-row items-start sm:items-center justify-between gap-2 mb-8">
-        <div className="flex flex-wrap gap-1.5">
-          {data.tags.map((tag) => (
-            <span
-              key={tag}
-              className="project-tag text-[10px] rounded-full px-2 py-0.5 text-neutral-500 border"
-              style={{ borderColor: TAG_DOT_COLORS[tag] || "#737373" }}
-            >
-              <span
-                className="project-tag-dot inline-block w-2 h-2 rounded-full mr-1 align-middle"
-                style={{ backgroundColor: TAG_DOT_COLORS[tag] || "#737373" }}
-              />
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="flex items-center gap-3 shrink-0">
-          {data.github && (
-            <a
-              href={data.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-            >
-              <GithubLogoIcon className="h-3.5 w-3.5" />
-              GitHub
-            </a>
-          )}
-          {data.href && (
-            <a
-              href={data.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-neutral-500 transition duration-200 ease-in-out hover:text-[#8A2BE2]"
-            >
-              <GlobeIcon className="h-3.5 w-3.5" />
-              Site
-            </a>
-          )}
-          {data.duration && (
-            <>
-              <span className="text-neutral-500">|</span>
-              <span className="text-xs text-neutral-500">{data.duration}</span>
-            </>
-          )}
-        </div>
-      </div>
-
-      <article className="prose prose-invert max-w-none">
-        <div className="overflow-x-auto">
+      <article className="prose prose-project">
+        <div className="mdx-body overflow-x-auto">
           <MDXRemote
             source={content}
             components={{ a: MdxLink }}

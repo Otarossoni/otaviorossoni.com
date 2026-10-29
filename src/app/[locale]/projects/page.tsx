@@ -25,9 +25,9 @@ export default async function ProjectsPage({
   return (
     <BlogLayout
       locale={locale}
+      title={t("projectsTitle")}
       breadcrumbs={[{ label: t("projectsTitle"), href: `/${locale}/projects` }]}
     >
-      <h1 className="text-xl sm:text-lg font-semibold mb-8">{t("projectsTitle")}</h1>
       <ProjectList initialProjects={initialProjects} hasMore={hasMore} locale={locale} />
     </BlogLayout>
   );

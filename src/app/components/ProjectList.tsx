@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { ProjectMeta } from "@/lib/projects";
 import { getPaginatedProjects } from "@/lib/actions";
 import ProjectCard from "./ProjectCard";
+import { MORE_LINK_CLASS, MoreLinkContent } from "./MoreLink";
 
 interface ProjectListProps {
   initialProjects: ProjectMeta[];
@@ -32,20 +33,16 @@ export default function ProjectList({ initialProjects, hasMore, locale }: Projec
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} showTags={true} />
         ))}
       </div>
 
       {hasMoreProjects && (
-        <button
-          onClick={handleLoadMore}
-          disabled={loading}
-          className="text-xs text-neutral-500 hover:text-[#8A2BE2] transition duration-200 ease-in-out cursor-pointer bg-transparent border-none p-0 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {loading ? t("loading") : t("loadMore")}
+        <button type="button" onClick={handleLoadMore} disabled={loading} className={`${MORE_LINK_CLASS} self-start`}>
+          <MoreLinkContent>{loading ? t("loading") : t("loadMore")}</MoreLinkContent>
         </button>
       )}
     </div>

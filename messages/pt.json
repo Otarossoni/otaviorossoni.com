@@ -18,6 +18,38 @@
   "rssButtonTitle": "Assinar RSS",
   "rssTitle": "Blog de Otávio Rossoni",
   "rssDescription": "Últimas publicações do blog.",
+  "experienceTitle": "Experiência",
+  "experiencePresent": "atual",
+  "experience": [
+    {
+      "role": "Software Engineer",
+      "company": "Luizalabs",
+      "start": "2024-11",
+      "end": "",
+      "icon": "Truck"
+    },
+    {
+      "role": "Software Engineer",
+      "company": "SBsistemas",
+      "start": "2024-04",
+      "end": "2024-11",
+      "icon": "Receipt"
+    },
+    {
+      "role": "Desenvolvedor de Software",
+      "company": "DataIntegra",
+      "start": "2022-08",
+      "end": "2024-04",
+      "icon": "Heartbeat"
+    },
+    {
+      "role": "Suporte e Implantação",
+      "company": "Vip Informática",
+      "start": "2021-06",
+      "end": "2022-08",
+      "icon": "Headset"
+    }
+  ],
   "socialLinks": [
     {
       "href": "mailto:otarossoni@gmail.com",
